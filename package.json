@@ -1,5 +1,5 @@
 {
-    "name": "changelog",
+    "name": "changelogapp",
     "main": "index.js",
     "version": "0.0.0",
     "description": "easily create, manage and maintain changelogs",
