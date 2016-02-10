@@ -1,2 +1,2 @@
 # changelog
-Easily create and manage [keepachangelog](keepachangelog.com) style changelogs.
+Easily create, manage and maintain [changelogs](keepachangelog.com)
