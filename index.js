@@ -21,6 +21,11 @@ if (process.argv.length === 0) {
             changelog.docs();
             break;
 
+        // Initialize a blank changelog file
+        case "init":
+            changelog.init();
+            break;
+
         default:
             // Unrecognised command supplied, show error
             console.log("changelog: '" + process.argv[0] + "' is not a changelog command. See 'changelog help'.");
