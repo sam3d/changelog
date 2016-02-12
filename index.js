@@ -26,6 +26,11 @@ if (process.argv.length === 0) {
             changelog.init();
             break;
 
+        // Destroy any changelog file
+        case "destroy":
+            changelog.destroy();
+            break;
+
         default:
             // Unrecognised command supplied, show error
             console.log("changelog: '" + process.argv[0] + "' is not a changelog command. See 'changelog help'.");

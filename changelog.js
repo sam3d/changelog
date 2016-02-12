@@ -13,12 +13,12 @@ module.exports = {
         // Check whether file exists
         fs.stat("CHANGELOG.md", function(err, stats){
             if (!err) {
-                console.log("There is already a CHANGELOG.md file in " + process.cwd());
+                console.display("There is already a CHANGELOG.md file in " + process.cwd());
             } else {
                 // Write the file
                 fs.writeFile("CHANGELOG.md", text, function(err){
                     if (err) {
-                        console.error("Fatal", "Could not write a new changelog file");
+                        console.display("Could not write a new changelog file", "Fatal");
                     } else {
                         console.log("Initialized empty CHANGELOG.md file in " + process.cwd());
                     }
@@ -28,20 +28,47 @@ module.exports = {
 
     },
 
+    // Destory any changelog file in the current directory
+    destroy : function(){
+
+        // Find out if file exists
+        fs.stat("CHANGELOG.md", function(err, stats){
+            if (!err) {
+
+                // Found the file, delete it
+                fs.unlink("CHANGELOG.md", function(err){
+                    if (err) {
+                        console.display("Could not delete the CHANGELOG.md file", "Fatal");
+                    } else {
+                        console.display("Removed CHANGELOG.md file in current directory");
+                    }
+                })
+
+            } else {
+                console.display("Could not find a CHANGELOG.md file in " + process.cwd(), "Fatal");
+            }
+        })
+
+    },
+
     // Show the documentation
     docs : function(){
 
-        console.log("usage: changelog <command> [<args]");
-        console.log("");
+        console.log("usage: changelog <command> [<args]\n");
         console.log("Basic Commands:");
         console.log("   help        List the documentation");
-        console.log("   init        Initialize a blank CHANGELOG.md file in the current directory");
-
+        console.log("   init        Initialize a blank CHANGELOG.md file in the current directory\n");
+        console.log("Danger Zone:");
+        console.log("   destroy     Completely destroy any changelog file in the current directory");
     }
 
 }
 
-// Throw an error
-console.error = function(type, msg){
-    console.log(type + ": " + msg);
+// Display a message to the console
+console.display = function(msg, type){
+    if (type) {
+        console.log(type + ": " + msg);
+    } else {
+        console.log("changelog: " + msg);
+    }
 }
