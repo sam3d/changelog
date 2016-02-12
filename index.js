@@ -9,7 +9,7 @@ process.argv.splice(0, 2);
 if (process.argv.length === 0) {
 
     // No command line arugments specified, show the docs
-    changelog.docs();
+    changelog.public.docs();
 
 } else {
 
@@ -18,17 +18,17 @@ if (process.argv.length === 0) {
 
         // Show the help
         case "help":
-            changelog.docs();
+            changelog.public.docs();
             break;
 
         // Initialize a blank changelog file
         case "init":
-            changelog.init();
+            changelog.public.init();
             break;
 
         // Destroy any changelog file
         case "destroy":
-            changelog.destroy();
+            changelog.public.destroy();
             break;
 
         case "parse":
@@ -38,12 +38,12 @@ if (process.argv.length === 0) {
         case "remove":
         case "fix":
         case "secure":
-            console.log("changelog: '"  + process.argv[0] + "' is not available yet. Sorry :/");
+            changelog.display("'"  + process.argv[0] + "' is not available yet. Sorry :/");
             break;
 
         default:
             // Unrecognised command supplied, show error
-            console.log("changelog: '" + process.argv[0] + "' is not a changelog command. See 'changelog help'.");
+            changelog.display("'" + process.argv[0] + "' is not a changelog command. See 'changelog help'.");
 
     }
 
