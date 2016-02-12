@@ -1,27 +1,30 @@
 {
-    "name": "changelogapp",
-    "main": "index.js",
-    "version": "0.0.0",
-    "description": "easily create, manage and maintain changelogs",
-    "author": "Sam Holmes",
-    "preferGlobal": true,
-    "license": "GPLv3",
-    "bin": {
-        "changelog": "index.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/samholmes1337/changelog.git"
-    },
-    "keywords": [
-        "changelog",
-        "keepachangelog",
-        "keepachangelog.com",
-        "semver",
-        "log",
-        "commit"
-    ],
-    "bugs": {
-        "url": "https://github.com/samholmes1337/changelog/issues"
-    }
+  "name": "changelogapp",
+  "main": "index.js",
+  "version": "0.0.0",
+  "description": "easily create, manage and maintain changelogs",
+  "author": "Sam Holmes",
+  "preferGlobal": true,
+  "license": "GPLv3",
+  "bin": {
+    "changelog": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/samholmes1337/changelog.git"
+  },
+  "keywords": [
+    "changelog",
+    "keepachangelog",
+    "keepachangelog.com",
+    "semver",
+    "log",
+    "commit"
+  ],
+  "bugs": {
+    "url": "https://github.com/samholmes1337/changelog/issues"
+  },
+  "dependencies": {
+    "colors": "^1.1.2"
+  }
 }

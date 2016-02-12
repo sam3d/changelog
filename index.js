@@ -31,6 +31,16 @@ if (process.argv.length === 0) {
             changelog.destroy();
             break;
 
+        case "parse":
+        case "add":
+        case "change":
+        case "deprecate":
+        case "remove":
+        case "fix":
+        case "secure":
+            console.log("changelog: '"  + process.argv[0] + "' is not available yet. Sorry :/");
+            break;
+
         default:
             // Unrecognised command supplied, show error
             console.log("changelog: '" + process.argv[0] + "' is not a changelog command. See 'changelog help'.");
