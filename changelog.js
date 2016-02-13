@@ -81,7 +81,7 @@ changelog = {
                                     if (err) {
 
                                         // Write the file
-                                        fs.writeFile(output, docs, function(err){
+                                        fs.writeFile(output, JSON.stringify(docs, null, 4), function(err){
                                             if (err) {
                                                 changelog.display("There was an error writing " + output + " in the current directory", "Fatal");
                                             } else {
@@ -121,7 +121,7 @@ changelog = {
             console.log("Basic Commands:");
             console.log("   help      List the documentation");
             console.log("   init      Initialize a blank CHANGELOG.md file in the current directory");
-            console.log(colors.grey("   parse     Parse the CHANGELOG.md file to json format\n"));
+            console.log("   parse     Parse the CHANGELOG.md file to json format\n");
             console.log("Changelog Commands:");
             console.log(colors.grey("   add       'Added' for new features"));
             console.log(colors.grey("   change    'Changed' for changes in existing functionality"));
