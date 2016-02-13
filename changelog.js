@@ -113,6 +113,13 @@ changelog = {
 
         },
 
+        // Show the current changelog status
+        status : function(){
+
+
+
+        },
+
         // Show the documentation
         docs : function(){
 
@@ -121,7 +128,8 @@ changelog = {
             console.log("Basic Commands:");
             console.log("   help      List the documentation");
             console.log("   init      Initialize a blank CHANGELOG.md file in the current directory");
-            console.log("   parse     Parse the CHANGELOG.md file to json format\n");
+            console.log("   parse     Parse the CHANGELOG.md file to JSON format");
+            console.log(colors.grey("   status    Get the changelog information and version status\n"));
             console.log("Changelog Commands:");
             console.log(colors.grey("   add       'Added' for new features"));
             console.log(colors.grey("   change    'Changed' for changes in existing functionality"));
@@ -136,7 +144,7 @@ changelog = {
     },
 
     // Display a message to the console
-    display: function(msg, type){
+    display : function(msg, type){
         if (type) {
             console.log(type + ": " + msg);
         } else {
@@ -145,7 +153,7 @@ changelog = {
     },
 
     // Parse changelog data
-    parse: function(data, callback){
+    parse : function(data, callback){
 
         // Final output JSON
         var docs = [];

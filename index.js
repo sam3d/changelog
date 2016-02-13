@@ -45,6 +45,7 @@ if (process.argv.length === 0) {
         case "remove":
         case "fix":
         case "secure":
+        case "status":
             changelog.display("'"  + process.argv[0] + "' is not available yet. Sorry :/");
             break;
 
