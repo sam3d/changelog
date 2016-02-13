@@ -32,6 +32,13 @@ if (process.argv.length === 0) {
             break;
 
         case "parse":
+            if (process.argv[1]) {
+                changelog.public.parse(process.argv[1]);
+            } else {
+                changelog.public.parse();
+            }
+            break;
+
         case "add":
         case "change":
         case "deprecate":
