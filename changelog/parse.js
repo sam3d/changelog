@@ -30,7 +30,7 @@ module.exports = function(data, callback){
         var rawVersion = release.split(" ")[0].split("\n")[0];
         var version = rawVersion.split("[").join("").split("]").join("");
         var released = (version !== "Unreleased");
-        var date = (isNaN(Date.parse(release.split(" ")[2].split("\n")[0]))) ? null : new Date(release.split(" ")[2].split("\n")[0]);
+        var date = released ? new Date(release.split(" ")[2].split("\n")[0]) : null;
         var link = (version == rawVersion) ? false : links[version];
 
         // Storing all of the actual release content

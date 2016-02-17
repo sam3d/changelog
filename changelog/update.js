@@ -35,7 +35,7 @@ module.exports = function(type){
 
                     // Generate update edit message
                     var msg = "\n# Please enter what you have " + verb + " in this new version. Lines\n# starting with '#' will be ignored and an empty message aborts\n# the update. Multiple lines will be treated as multiple " + past + ".";
-                    msg += "\n# Currently on version " + output[1].version;
+                    if (output.length > 1) { msg += "\n# Currently on version " + output[1].version; }
                     msg += "\n#";
 
                     // Create .UPDATE_EDITMSG file with above contents and open $EDITOR
