@@ -3,7 +3,6 @@ module.exports = function(data, callback){
     // The final string output
     var output = "# Change Log\nAll notable changes to this project will be documented in this file.\nThis project adheres to [Semantic Versioning](http://semver.org/).\n\n";
     var linkString = "";
-    data = JSON.parse(data);
 
     // Loop over the data
     for (var i = 0; i < data.length; i++){
@@ -44,6 +43,9 @@ module.exports = function(data, callback){
                 releaseString += "\n### " + key;
                 for (var j = 0; j < release.content[key].length; j++) {
                     releaseString += "\n- " + release.content[key][j];
+                    if (j === (release.content[key].length - 1)) {
+                        releaseString += "\n";
+                    }
                 }
             }
         }
@@ -60,5 +62,5 @@ module.exports = function(data, callback){
     output += "\n" + linkString;
 
     // Callback
-    callback(output, null);
+    callback(null, output);
 };

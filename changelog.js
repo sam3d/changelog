@@ -9,7 +9,8 @@ changelog = {
 
     display : require("./changelog/display"),
     parse : require("./changelog/parse"),
-    stringify : require("./changelog/stringify")
+    stringify : require("./changelog/stringify"),
+    update : require("./changelog/update")
 
 };
 

@@ -30,7 +30,7 @@ module.exports = function(data, callback){
         var rawVersion = release.split(" ")[0].split("\n")[0];
         var version = rawVersion.split("[").join("").split("]").join("");
         var released = (version !== "Unreleased");
-        var date = new Date(release.split(" ")[2].split("\n")[0]);
+        var date = (isNaN(Date.parse(release.split(" ")[2].split("\n")[0]))) ? null : new Date(release.split(" ")[2].split("\n")[0]);
         var link = (version == rawVersion) ? false : links[version];
 
         // Storing all of the actual release content
@@ -45,6 +45,11 @@ module.exports = function(data, callback){
             var header = headers[j].split("\n")[0];
             var notes = headers[j].split("\n- ");
             notes.splice(0, 1);
+
+            for (var k = 0; k < notes.length; k++){
+                notes[k] = notes[k].split("\n").join(" ");
+            }
+
             content[header] = notes;
 
         }

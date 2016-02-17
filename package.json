@@ -25,6 +25,7 @@
     "url": "https://github.com/samholmes1337/changelog/issues"
   },
   "dependencies": {
-    "colors": "^1.1.2"
+    "colors": "^1.1.2",
+    "editor": "^1.0.0"
   }
 }

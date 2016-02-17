@@ -39,12 +39,17 @@ if (process.argv.length === 0) {
             }
             break;
 
+        // A core changelog function
         case "add":
         case "change":
         case "deprecate":
         case "remove":
         case "fix":
         case "secure":
+            changelog.update(process.argv[0]);
+            break;
+
+        // Unavailable functionality
         case "status":
             changelog.display("'"  + process.argv[0] + "' is not available yet. Sorry :/");
             break;
