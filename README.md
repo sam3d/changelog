@@ -7,31 +7,27 @@ Easily create, manage and maintain [changelogs](keepachangelog.com)
 Currently this project can only be used as a command line application. An API will be available soon that gives access to _changelog_ functions as an npm module. To install as a command line application run the following:
 
 ```console
-npm install changelogapp -g
+$ npm install changelogapp -g
 ```
 
 ## Command line usage
-Navigate to the directory that you wish to create and modify changelogs in. Below is the output from the documentation screen found by running `changelog help`:
+Navigate to the directory that you wish to create and modify changelogs in. Below are the commands that can be run from the command line:
 
-```console
-usage: changelog <command> [<args>]
+### Simple commands
+| Command | Description |
+|---|---|
+| help | List the documentation |
+| init | Initialize a blank CHANGELOG.md file in the current directory |
+| parse [filename] | Parse the CHANGELOG.md file to JSON format. If no filename is specified the JSON will be printed to _stdout_, and if it is then the JSON will be saved to the filename specified in the current directory (if no file extension given, it will default to .json) |
+| status | Print out changelog information, including the current version and a summary of the changes made |
 
-Basic Commands:
-   help      List the documentation
-   init      Initialize a blank CHANGELOG.md file in the current directory
-   parse     Parse the CHANGELOG.md file to JSON format
+### Changelog commands
+`add`, `change`, `deprecate`, `remove`, `fix`, and `secure` as arguments all serve the same purpose of updating the "Unreleased" section of the changelog with content (corresponding to the [keepachangelog](keepachangelog.com) categories). It will open $EDITOR, at which point you can enter the changes made prevalent to that category, separating each new item with a new line.
 
-Changelog Commands:
-   add       'Added' for new features
-   change    'Changed' for changes in existing functionality
-   deprecate 'Deprecated' for once stable features removed in upcoming releases
-   remove    'Removed' for deprecated features removed in this release
-   fix       'Fixed' for any bug fixes
-   secure    'Security' to invite users to upgrade in case of vulnerabilities
-
-Danger Zone:
-   destroy   Completely destroy any changelog file in the current directory
-```
+### Version commands
+| Command | Description |
+|---|---|
+| bump [version &#124; patch &#124; minor &#124; major] | This command will bump the "Unreleased" header to the next desired version. If no argument is specified a _patch_ update will automatically be applied. You can specify your own version (provided it adheres to [Semantic Versioning](http://semver.org)) or you can specify a _patch_, _minor_ or _major_ jump. |
 
 ## API usage
 _Coming soon!_
@@ -39,4 +35,4 @@ _Coming soon!_
 ## Warnings
 Currently, _changelog_ is very much in beta and a few things may not work perfectly. The most notable case being the fact that the parsing algorithm doesn't handle non-keepachangelog-style changelogs very well (if at all).
 
-While support for changelogs that don't conform to this standard do not plan to be supported, if you believe that you have a CHANGELOG.md file that you believe should be supported then create a new issue with the CHANGELOG.md file attached and a description of any errors you get.
+While support for changelogs that don't conform to this standard is not planned, if you have a CHANGELOG.md file that you believe should be supported, then create a new issue with the CHANGELOG.md file attached and a description of any errors you get.
