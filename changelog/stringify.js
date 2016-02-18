@@ -59,8 +59,8 @@ module.exports = function(data, callback){
     }
 
     // Add the links on the end
-    output += "\n" + linkString;
+    output += linkString + "\n";
 
     // Callback
-    callback(null, output);
+    callback(null, output.trim());
 };

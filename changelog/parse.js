@@ -4,21 +4,30 @@ module.exports = function(data, callback){
     var docs = [];
     var err = false;
 
-    // Get releases
-    var releases = data.split("\n## ").slice(1); // Seperate by markdown headers
+    // Get the links
+    var links = {};
+    var newLines = data.split("\n"); // Seperate into newlines
+    data = ""; // Clear out data
 
-    // Get links
-    var rawLinks = releases[releases.length - 1].split("\n\n")[1].split("\n"); // Raw link data
-    rawLinks.pop(); // Remove last (empty) item from raw link array
-    var links = {}; // Actual links with version link dictionary pairs
-    for (var i = 0; i < rawLinks.length; i++){
-        var link = rawLinks[i].split(": ")[1]; // Seperate version numbers from links
-        var version = rawLinks[i].split(":")[0].split("[").join("").split("]").join(""); // Remove square brackets from links
-        links[version] = link; // Add to the link object
+    // Loop over the newlines
+    for (var i = 0; i < newLines.length; i++){
+
+        // Get the line
+        var line = newLines[i];
+
+        // Search for link
+        if (line.split(/\[.*\]:/).length > 1) {
+            var link = line.split(": ")[1].trim();
+            var version = line.split(": ")[0].split("[").join("").split("]").join("").trim();
+            links[version] = link;
+        } else {
+            data += line + "\n";
+        }
+
     }
 
-    // Remove links from array
-    releases[releases.length - 1] = releases[releases.length - 1].split("\n\n").splice(-2, 1).join("\n\n");
+    // Get releases
+    var releases = data.split("\n## ").slice(1); // Seperate by markdown headers
 
     // Loop over the releases and create final object
     for (var i = 0; i < releases.length; i++){
@@ -47,7 +56,7 @@ module.exports = function(data, callback){
             notes.splice(0, 1);
 
             for (var k = 0; k < notes.length; k++){
-                notes[k] = notes[k].split("\n").join(" ");
+                notes[k] = notes[k].split("\n").join(" ").trim();
             }
 
             content[header] = notes;
