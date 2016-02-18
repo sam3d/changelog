@@ -33,6 +33,17 @@ module.exports = function(type){
                         case "secure": header = "Security"; verb = "secured"; past = "secures"; break;
                     }
 
+                    // Add unreleased header if one is not already present
+                    if (output[0].released) {
+                        output.unshift({
+                            version: "Unreleased",
+                            released: false,
+                            date: null,
+                            link: null,
+                            content: {}
+                        });
+                    }
+
                     // Generate update edit message
                     var msg = "\n# Please enter what you have " + verb + " in this new version. Lines\n# starting with '#' will be ignored and an empty message aborts\n# the update. Multiple lines will be treated as multiple " + past + ".";
                     if (output.length > 1) { msg += "\n# Currently on version " + output[1].version; }
