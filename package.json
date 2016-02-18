@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "colors": "^1.1.2",
-    "editor": "^1.0.0"
+    "editor": "^1.0.0",
+    "semver": "^5.1.0"
   }
 }

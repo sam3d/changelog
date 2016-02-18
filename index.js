@@ -49,6 +49,11 @@ if (process.argv.length === 0) {
             changelog.update(process.argv[0]);
             break;
 
+        // Bump the version number
+        case "bump":
+            changelog.bump(process.argv[1]);
+            break;
+
         // Unavailable functionality
         case "status":
             changelog.display("'"  + process.argv[0] + "' is not available yet. Sorry :/");

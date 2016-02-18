@@ -16,6 +16,8 @@ module.exports = function(){
     console.log("   remove    'Removed' for deprecated features removed in this release");
     console.log("   fix       'Fixed' for any bug fixes");
     console.log("   secure    'Security' to invite users to upgrade in case of vulnerabilities\n");
+    console.log("Version Commands:");
+    console.log("   bump       Update 'Unreleased' section to new version\n");
     console.log("Danger Zone:");
     console.log("   destroy   Completely destroy any changelog file in the current directory");
 };
