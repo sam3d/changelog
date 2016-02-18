@@ -4,7 +4,7 @@ var fs = require("fs");
 module.exports = function(){
 
     // Get the default text
-    var text = "# Change Log\nAll notable changes to this project will be documented in this file.\nThis project adheres to [Semantic Versioning](http://semver.org/).\n\n## Unreleased\n\n";
+    var text = "# Change Log\nAll notable changes to this project will be documented in this file.\nThis project adheres to [Semantic Versioning](http://semver.org/).\n\n## Unreleased";
 
     // Check whether file exists
     fs.stat("CHANGELOG.md", function(err, stats){
