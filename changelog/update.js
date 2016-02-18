@@ -98,7 +98,14 @@ module.exports = function(type){
                                                     if (err){
                                                         changelog.display("Could not write updated changelog", "Fatal");
                                                     } else {
-                                                        changelog.display("Added " + items.length + " item to \"" + header + "\"");
+
+                                                        // Make sure pluralisation of "item" is correct
+                                                        if (items.length === 1) {
+                                                            changelog.display("Added " + items.length + " item to \"" + header + "\"");
+                                                        } else {
+                                                            changelog.display("Added " + items.length + " items to \"" + header + "\"");
+                                                        }
+
                                                     }
                                                 });
                                             });
