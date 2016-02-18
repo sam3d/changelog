@@ -2,7 +2,7 @@
 var colors = require("colors/safe");
 
 module.exports = function(){
-    console.log("usage: changelog <command> [<args]");
+    console.log("usage: changelog <command> [<args>]");
     console.log("beta: " + colors.grey("grey") + " items are not yet available\n");
     console.log("Basic Commands:");
     console.log("   help      List the documentation");
