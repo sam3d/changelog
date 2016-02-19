@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Fixed
+- Corrected pluralisation on `status` number of versions
+
 ## 0.2.0 - 2016-02-19
 ### Added
 - Basic `status` command to get info about the changelog

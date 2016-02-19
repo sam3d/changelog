@@ -28,8 +28,14 @@ module.exports = function(){
                             statusString += "The changelog has no releases to show";
                         }
                     } else {
-                        if (docs.length > 0){
+
+                        if (docs.length === 1){
+                            statusString += "There has been " + docs.length + " version released";
+                        } else if (docs.length > 1){
                             statusString += "There have been " + docs.length + " versions released";
+                        }
+
+                        if (docs.length > 0){
                             statusString += "\nThe most recent of these being v" + docs[0].version + " from " + moment(docs[0].date).fromNow();
                         } else {
                             statusString += "The changelog has no releases to show";
