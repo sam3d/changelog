@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 ### Added
 - Basic `status` command to get info about the changelog
+- Will update package.json version number too if found
 
 ## 0.1.1 - 2016-02-18
 ### Added

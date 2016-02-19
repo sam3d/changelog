@@ -42,6 +42,19 @@ module.exports = function(type){
                                 });
                             });
 
+                            // Attempt to read the package.json file and bump
+                            fs.readFile("package.json", "utf8", function(err, data){
+                                if (!err){
+                                    data = JSON.parse(data);
+                                    data.version = docs[0].version;
+                                    fs.writeFile("package.json", JSON.stringify(data, null, 2), function(err){
+                                        if (!err){
+                                            console.log("found: package.json and updated version");
+                                        }
+                                    });
+                                }
+                            });
+
                         } else {
 
                             // If the type has not been specified, default to patch
@@ -64,6 +77,19 @@ module.exports = function(type){
                                                 changelog.display("Updated from " + version + " -> " + docs[0].version);
                                             }
                                         });
+                                    });
+
+                                    // Attempt to read the package.json file and bump
+                                    fs.readFile("package.json", "utf8", function(err, data){
+                                        if (!err){
+                                            data = JSON.parse(data);
+                                            data.version = docs[0].version;
+                                            fs.writeFile("package.json", JSON.stringify(data, null, 2), function(err){
+                                                if (!err){
+                                                    console.log("found: package.json and updated version");
+                                                }
+                                            });
+                                        }
                                     });
                                     break;
 
