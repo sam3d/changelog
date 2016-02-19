@@ -69,5 +69,5 @@ module.exports = function(data, callback){
     }
 
     // Callback
-    callback(null, output.trim());
+    callback(null, output.trim() + "\n");
 };

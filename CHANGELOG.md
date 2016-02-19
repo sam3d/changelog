@@ -7,6 +7,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Basic `status` command to get info about the changelog
 - Will update package.json version number too if found
 
+### Fixed
+- Always add a newline to the end of a stringified file
+
 ## 0.1.1 - 2016-02-18
 ### Added
 - `bump` command that updates the changelog to the next version
