@@ -11,7 +11,7 @@ module.exports = function(output){
             changelog.parse(data, function(err, docs){
 
                 if (err) {
-                    changelog.display("Could not parse the CHANGELOG.md file in " + process.cwd() + ". Please make sure it adheres to the keepachangelog.com standard", "Fatal");
+                    changelog.display(null, parseError);
                 } else {
 
                     if (output){
@@ -53,7 +53,7 @@ module.exports = function(output){
             });
 
         } else {
-            changelog.display("Could not find a CHANGELOG.md file in " + process.cwd(), "Fatal");
+            changelog.display(null, "fileNotFound");
         }
     });
 

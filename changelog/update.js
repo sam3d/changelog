@@ -8,14 +8,14 @@ module.exports = function(type){
     fs.readFile("CHANGELOG.md", "utf8", function(err, contents){
 
         if (err){
-            changelog.display("Could not find a CHANGELOG.md file in " + process.cwd(), "Fatal");
+            changelog.display(null, fileNotFound);
         } else {
 
             // Parse the changelog
             changelog.parse(contents, function(err, output){
 
                 if (err){
-                    changelog.display("Could not parse the contents of " + process.cwd() + "/CHANGELOG.md", "Fatal");
+                    changelog.display(null, "parseError");
                 } else {
 
                     // Different words, phrases and text sections
