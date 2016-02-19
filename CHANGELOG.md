@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Corrected pluralisation on `status` number of versions
 
+### Added
+- Two basic API commands have been introduced: `parse` and `stringify`
+
 ## 0.2.0 - 2016-02-19
 ### Added
 - Basic `status` command to get info about the changelog
