@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Added
+- Basic `status` command to get info about the changelog
+
 ## 0.1.1 - 2016-02-18
 ### Added
 - `bump` command that updates the changelog to the next version

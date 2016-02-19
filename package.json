@@ -27,6 +27,7 @@
   "dependencies": {
     "colors": "^1.1.2",
     "editor": "^1.0.0",
+    "moment": "^2.11.2",
     "semver": "^5.1.0"
   }
 }

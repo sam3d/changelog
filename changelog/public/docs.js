@@ -2,13 +2,12 @@
 var colors = require("colors/safe");
 
 module.exports = function(){
-    console.log("usage: changelog <command> [<args>]");
-    console.log("beta: " + colors.grey("grey") + " items are not yet available\n");
+    console.log("usage: changelog <command> [<args>]\n");
     console.log("Basic Commands:");
     console.log("   help      List the documentation");
     console.log("   init      Initialize a blank CHANGELOG.md file in the current directory");
     console.log("   parse     Parse the CHANGELOG.md file to JSON format");
-    console.log(colors.grey("   status    Get the changelog information and version status\n"));
+    console.log("   status    Get the changelog information and version status\n");
     console.log("Changelog Commands:");
     console.log("   add       'Added' for new features");
     console.log("   change    'Changed' for changes in existing functionality");

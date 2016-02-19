@@ -4,7 +4,8 @@ changelog = {
         init : require("./changelog/public/init"),
         destroy : require("./changelog/public/destroy"),
         parse : require("./changelog/public/parse"),
-        docs : require("./changelog/public/docs")
+        docs : require("./changelog/public/docs"),
+        status : require("./changelog/public/status")
     },
 
     display : require("./changelog/display"),

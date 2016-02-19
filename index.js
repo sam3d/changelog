@@ -54,10 +54,14 @@ if (process.argv.length === 0) {
             changelog.bump(process.argv[1]);
             break;
 
-        // Unavailable functionality
+        // Show the changelog status
         case "status":
-            changelog.display("'"  + process.argv[0] + "' is not available yet. Sorry :/");
+            changelog.public.status();
             break;
+
+        // Unavailable functionality
+        // case null:
+            // changelog.display("'"  + process.argv[0] + "' is not available yet. Sorry :/");
 
         default:
             // Unrecognised command supplied, show error
