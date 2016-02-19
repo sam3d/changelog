@@ -13,6 +13,10 @@ $ npm install changelogapp -g
 ## Command line usage
 Navigate to the directory that you wish to create and modify changelogs in. Below are the commands that can be run from the command line:
 
+```console
+$ changelog <command> [<args>]
+```
+
 ### Simple commands
 | Command | Description |
 |---|---|
