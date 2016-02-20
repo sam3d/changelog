@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 0.3.1 - 2016-02-20
 ### Added
 - The status page now shows color-coded unreleased items.
 
