@@ -1,6 +1,7 @@
 // Dependencies
 var fs = require("fs");
 var moment = require("moment");
+var colors = require("colors/safe");
 
 module.exports = function(){
 
@@ -27,6 +28,30 @@ module.exports = function(){
                         } else {
                             statusString += "The changelog has no releases to show";
                         }
+
+                        // Check whether there is any unreleased content
+                        if (docs[0].content) {
+
+                            statusString += "\n\nUnreleased content:\n  (use \"changelog bump [version | patch | minor | major]\" to release)\n";
+
+                            // Loop over the content
+                            for (var key in docs[0].content) {
+                                if (docs[0].content.hasOwnProperty(key)) {
+                                    statusString += "\n  " + key + ":";
+                                    for (var i = 0; i < docs[0].content[key].length; i++) {
+                                        statusString += "\n    - " + docs[0].content[key][i];
+                                        if (i === (docs[0].content[key].length - 1)) {
+                                            statusString += "\n";
+                                        }
+                                    }
+                                }
+
+                            }
+
+                        } else {
+                            statusString += "\nThere is no content in \"Unreleased\" to show";
+                        }
+
                     } else {
 
                         if (docs.length === 1){
