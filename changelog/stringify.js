@@ -40,9 +40,32 @@ module.exports = function(data, callback){
                 releaseString += " - " + year + "-" + month + "-" + day;
             }
 
-            // Loop over the content
+            // Loop over expected content in the correct order
+            var headers = ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"];
+            for (var j = 0; j < headers.length; j++){
+
+                // Get the header
+                var header = headers[j];
+
+                // Check whether it exists
+                if (release.content[header]){
+
+                    // It exists, loop over inner content
+                    releaseString += "\n### " + header;
+                    for (var k = 0; k < release.content[header].length; k++) {
+                        releaseString += "\n- " + release.content[header][k];
+                        if (k === (release.content[header].length - 1)) {
+                            releaseString += "\n";
+                        }
+                    }
+
+                }
+
+            }
+
+            // Loop over any additional custom headers
             for (var key in release.content) {
-                if (release.content.hasOwnProperty(key)) {
+                if (release.content.hasOwnProperty(key) && headers.indexOf(key) === -1) {
                     releaseString += "\n### " + key;
                     for (var j = 0; j < release.content[key].length; j++) {
                         releaseString += "\n- " + release.content[key][j];
