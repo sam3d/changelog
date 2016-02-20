@@ -4,7 +4,7 @@ Easily create, manage and maintain [changelogs](keepachangelog.com)
 [![NPM](https://nodei.co/npm/changelogapp.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/changelogapp/)
 
 ## Installation
-Currently this project can only be used as a command line application. An API will be available soon that gives access to _changelog_ functions as an npm module. To install as a command line application run the following:
+This project can be used as both a command line application and as a module. A simple API is currently available that gives access to _changelog_ functions as an npm module. To install as a command line application run the following:
 
 ```console
 $ npm install changelogapp -g
