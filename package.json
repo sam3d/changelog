@@ -1,13 +1,13 @@
 {
   "name": "changelogapp",
-  "main": "index.js",
+  "main": "changelog.js",
   "version": "0.3.0",
   "description": "easily create, manage and maintain changelogs",
   "author": "Sam Holmes",
   "preferGlobal": true,
   "license": "GPL-3.0",
   "bin": {
-    "changelog": "index.js"
+    "changelog": "changelog.js"
   },
   "repository": {
     "type": "git",
