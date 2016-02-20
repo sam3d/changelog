@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Added
+- The status page now shows color-coded unreleased items.
+
 ## 0.3.0 - 2016-02-20
 ### Added
 - Two basic API commands have been introduced: `parse` and `stringify`.

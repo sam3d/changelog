@@ -37,15 +37,30 @@ module.exports = function(){
                             // Loop over the content
                             for (var key in docs[0].content) {
                                 if (docs[0].content.hasOwnProperty(key)) {
-                                    statusString += "\n  " + key + ":";
+
+                                    // Contain the inner string of the item
+                                    var itemString = "";
+
+                                    itemString += "\n  " + key + ":";
                                     for (var i = 0; i < docs[0].content[key].length; i++) {
-                                        statusString += "\n    - " + docs[0].content[key][i];
+                                        itemString += "\n    - " + docs[0].content[key][i];
                                         if (i === (docs[0].content[key].length - 1)) {
-                                            statusString += "\n";
+                                            itemString += "\n";
                                         }
                                     }
-                                }
 
+                                    // Add the item string to the status string with colors
+                                    switch (key) {
+                                        case "Added": statusString += colors.green(itemString); break;
+                                        case "Changed": statusString += colors.yellow(itemString); break;
+                                        case "Deprecated": statusString += colors.grey(itemString); break;
+                                        case "Removed": statusString += colors.red(itemString); break;
+                                        case "Fixed": statusString += colors.blue(itemString); break;
+                                        case "Security": statusString += colors.magenta(itemString); break;
+                                        default: statusString += itemString; break;
+                                    }
+
+                                }
                             }
 
                         } else {
