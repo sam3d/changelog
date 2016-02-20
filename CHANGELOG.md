@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 ### Fixed
 - Corrected pluralisation on `status` number of versions
+- If a changelog contained no content at all then an error was thrown when attempting to update (due to the lack of an "Unreleased" header). Now a new header is just created instead.
 
 ### Added
 - Two basic API commands have been introduced: `parse` and `stringify`

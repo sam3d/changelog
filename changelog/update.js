@@ -34,8 +34,8 @@ module.exports = function(type){
                     }
 
                     // Add unreleased header if one is not already present
-                    var newHeader = false; // To show an additional message after creation
-                    if (output[0].released) {
+                    var newHeader = ""; // To show an additional message after creation
+                    if (!output.length){
                         output.unshift({
                             version: "Unreleased",
                             released: false,
@@ -43,13 +43,22 @@ module.exports = function(type){
                             link: null,
                             content: {}
                         });
-                        newHeader = true;
+                        newHeader = "\n# There was no content - creating new \"Unreleased\" header.";
+                    } else if (output[0].released) {
+                        output.unshift({
+                            version: "Unreleased",
+                            released: false,
+                            date: null,
+                            link: null,
+                            content: {}
+                        });
+                        newHeader = " - creating new \"Unreleased\" header.";
                     }
 
                     // Generate update edit message
                     var msg = "\n# Please enter what you have " + verb + " in this new version. Lines\n# starting with '#' will be ignored and an empty message aborts\n# the update. Multiple lines will be treated as multiple " + past + ".";
                     if (output.length > 1) { msg += "\n# Currently on version " + output[1].version; }
-                    if (newHeader) { msg += " - creating new \"Unreleased\" header"; }
+                    msg += newHeader;
                     msg += "\n#";
 
                     // Create .UPDATE_EDITMSG file with above contents and open $EDITOR
