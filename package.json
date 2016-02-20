@@ -1,7 +1,7 @@
 {
   "name": "changelogapp",
   "main": "index.js",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "easily create, manage and maintain changelogs",
   "author": "Sam Holmes",
   "preferGlobal": true,
@@ -27,7 +27,10 @@
   "dependencies": {
     "colors": "^1.1.2",
     "editor": "^1.0.0",
+    "ghauth": "^3.2.0",
     "moment": "^2.11.2",
-    "semver": "^5.1.0"
+    "publish-release": "^1.2.0",
+    "semver": "^5.1.0",
+    "simple-spinner": "0.0.5"
   }
 }

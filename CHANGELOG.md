@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 0.3.0 - 2016-02-20
 ### Added
 - Two basic API commands have been introduced: `parse` and `stringify`.
 - During stringification, the items in a release will now be ordered hierarchically (so "Added" will always come above "Fixed" for example).
