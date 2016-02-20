@@ -1,20 +1,4 @@
-changelog = {
-
-    public : {
-        init : require("./changelog/public/init"),
-        destroy : require("./changelog/public/destroy"),
-        parse : require("./changelog/public/parse"),
-        docs : require("./changelog/public/docs"),
-        status : require("./changelog/public/status")
-    },
-
-    display : require("./changelog/display"),
-    parse : require("./changelog/parse"),
-    stringify : require("./changelog/stringify"),
-    update : require("./changelog/update"),
-    bump : require("./changelog/bump")
-
-};
-
-// Export back to app
+// Load all required files
+var requireDir = require("require-dir");
+changelog = requireDir("./changelog", {recurse: true});
 module.exports = changelog;

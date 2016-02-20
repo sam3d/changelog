@@ -30,6 +30,7 @@
     "ghauth": "^3.2.0",
     "moment": "^2.11.2",
     "publish-release": "^1.2.0",
+    "require-dir": "^0.3.0",
     "semver": "^5.1.0",
     "simple-spinner": "0.0.5"
   }
