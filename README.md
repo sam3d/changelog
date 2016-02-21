@@ -1,5 +1,5 @@
 # changelog [![npm version](https://badge.fury.io/js/changelogapp.svg)](https://badge.fury.io/js/changelogapp)
-Easily create, manage and maintain [changelogs](keepachangelog.com)
+Easily create, manage and maintain [changelogs](http://keepachangelog.com)
 
 ![Demonstration](http://i.imgur.com/GQMsC7n.gif)
 
@@ -28,7 +28,7 @@ $ changelog <command> [<args>]
 | status | Print out changelog information, including the current version and a summary of the changes made |
 
 ### Changelog commands
-`add`, `change`, `deprecate`, `remove`, `fix`, and `secure` as arguments all serve the same purpose of updating the "Unreleased" section of the changelog with content (corresponding to the [keepachangelog](keepachangelog.com) categories). It will open $EDITOR, at which point you can enter the changes made prevalent to that category, separating each new item with a new line.
+`add`, `change`, `deprecate`, `remove`, `fix`, and `secure` as arguments all serve the same purpose of updating the "Unreleased" section of the changelog with content (corresponding to the [keepachangelog](http://keepachangelog.com) categories). It will open $EDITOR, at which point you can enter the changes made prevalent to that category, separating each new item with a new line.
 
 ### Version commands
 | Command | Description |
