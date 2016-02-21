@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 0.3.2 - 2016-02-21
 ### Added
 - New `copy` command that copies the latest release contents to the clipboard in markdown.
 
