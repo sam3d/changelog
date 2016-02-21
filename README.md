@@ -1,6 +1,8 @@
 # changelog [![npm version](https://badge.fury.io/js/changelogapp.svg)](https://badge.fury.io/js/changelogapp)
 Easily create, manage and maintain [changelogs](keepachangelog.com)
 
+![Demonstration](http://i.imgur.com/GQMsC7n.gif)
+
 [![NPM](https://nodei.co/npm/changelogapp.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/changelogapp/)
 
 ## Installation
