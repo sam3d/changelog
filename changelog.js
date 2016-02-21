@@ -50,12 +50,12 @@ if (require.main === module) {
             case "remove":
             case "fix":
             case "secure":
-                changelog.update(process.argv[0]);
+                changelog.public.update(process.argv[0]);
                 break;
 
             // Bump the version number
             case "bump":
-                changelog.bump(process.argv[1]);
+                changelog.public.bump(process.argv[1]);
                 break;
 
             // Show the changelog status
