@@ -17,7 +17,7 @@ module.exports = function(){
             });
 
         } else {
-            changelog.display("Could not find a CHANGELOG.md file in " + process.cwd(), "Fatal");
+            changelog.display(null, "fileNotFound");
         }
     });
 

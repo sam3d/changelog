@@ -11,7 +11,7 @@ module.exports = function(output){
             changelog.parse(data, function(err, docs){
 
                 if (err) {
-                    changelog.display(null, parseError);
+                    changelog.display(null, "parseError");
                 } else {
 
                     if (output){

@@ -8,7 +8,7 @@ module.exports = function(type){
     fs.readFile("CHANGELOG.md", "utf8", function(err, contents){
 
         if (err){
-            changelog.display(null, fileNotFound);
+            changelog.display(null, "fileNotFound");
         } else {
 
             // Parse the changelog
