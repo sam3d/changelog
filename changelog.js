@@ -58,6 +58,11 @@ if (require.main === module) {
                 changelog.public.bump(process.argv[1]);
                 break;
 
+            // Copy the current version to the clipboard
+            case "copy":
+                changelog.public.copy();
+                break;
+
             // Show the changelog status
             case "status":
                 changelog.public.status();

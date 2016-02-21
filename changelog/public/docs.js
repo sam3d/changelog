@@ -16,7 +16,8 @@ module.exports = function(){
     console.log("   fix       'Fixed' for any bug fixes");
     console.log("   secure    'Security' to invite users to upgrade in case of vulnerabilities\n");
     console.log("Version Commands:");
-    console.log("   bump       Update 'Unreleased' section to new version\n");
+    console.log("   bump       Update 'Unreleased' section to new version");
+    console.log("   copy       Copy the latest version to the clipboard\n");
     console.log("Danger Zone:");
     console.log("   destroy   Completely destroy any changelog file in the current directory");
 };

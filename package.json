@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "colors": "^1.1.2",
+    "copy-paste": "^1.1.4",
     "editor": "^1.0.0",
     "ghauth": "^3.2.0",
     "moment": "^2.11.2",

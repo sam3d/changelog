@@ -3,8 +3,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Added
+- New `copy` command that copies the latest release contents to the clipboard in markdown.
+
 ### Fixed
-- Some error messages would not display correctly and would throw an error themselves because of passing the wrong data type
+- Some error messages would not display correctly and would throw an error themselves because of passing the wrong data type.
 
 ## 0.3.1 - 2016-02-20
 ### Added
