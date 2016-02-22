@@ -63,6 +63,11 @@ if (require.main === module) {
                 changelog.public.copy();
                 break;
 
+            // GitHub releases integration
+            case "release":
+                changelog.public.release();
+                break;
+
             // Show the changelog status
             case "status":
                 changelog.public.status();
