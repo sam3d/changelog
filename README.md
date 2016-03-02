@@ -12,6 +12,13 @@ This project can be used as both a command line application and as a module. A s
 $ npm install changelogapp -g
 ```
 
+As an aside, if you have `vim` set as your `$EDITOR` then do make sure that in your `~/.vimrc` file you add the following line to enable spellcheck and non-destructive line-wrapping:
+
+```
+" Enable spellcheck and wrap for changelog edit messages
+autocmd VimEnter .UPDATE_EDITMSG setlocal spell linebreak wrap
+```
+
 ## Command line usage
 Navigate to the directory that you wish to create and modify changelogs in. Below are the commands that can be run from the command line:
 
