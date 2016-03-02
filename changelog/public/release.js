@@ -69,7 +69,7 @@ module.exports = function(){
                                                 command += "git push origin master && git push origin v" + version;
 
                                                 // Show the progress spinner
-                                                changelog.display("Creating new commit and tag v" + version + " and pushing to GitHub");
+                                                changelog.display("Creating new commit and tag for v" + version + " and pushing to GitHub");
                                                 spinner.start();
 
                                                 // Make the release!

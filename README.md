@@ -35,6 +35,7 @@ $ changelog <command> [<args>]
 |---|---|
 | bump [version &#124; patch &#124; minor &#124; major] | This command will bump the "Unreleased" header to the next desired version. If no argument is specified a _patch_ update will automatically be applied. You can specify your own version (provided it adheres to [Semantic Versioning](http://semver.org)) or you can specify a _patch_, _minor_ or _major_ jump |
 | copy | Copy the contents of the latest release item to the clipboard in markdown format |
+| release | Create a new commit and tag with the version number and publish the release to GitHub |
 
 ## API usage
 First things first, install the module as normal by running the following command in the directory you want to install to:

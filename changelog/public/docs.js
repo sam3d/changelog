@@ -17,7 +17,8 @@ module.exports = function(){
     console.log("   secure    'Security' to invite users to upgrade in case of vulnerabilities\n");
     console.log("Version Commands:");
     console.log("   bump       Update 'Unreleased' section to new version");
-    console.log("   copy       Copy the latest version to the clipboard\n");
+    console.log("   copy       Copy the latest version to the clipboard");
+    console.log("   release    Create a new commit & tag and published the release to GitHub\n");
     console.log("Danger Zone:");
     console.log("   destroy   Completely destroy any changelog file in the current directory");
 };
