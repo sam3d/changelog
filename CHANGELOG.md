@@ -2,9 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Added
+- Better logging and error handling for "release" command.
+
 ## 0.3.3 - 2016-03-02
 ### Added
-- New `release` command that will read the remotes in your git repository, create a new commit and tag containing both the `package.json` file (if found) and the `CHANGELOG.md` file updated for the new version, then publish the release to GitHub.s
+- New `release` command that will read the remotes in your git repository, create a new commit and tag containing both the `package.json` file (if found) and the `CHANGELOG.md` file updated for the new version, then publish the release to GitHub.
 
 ## 0.3.2 - 2016-02-21
 ### Added

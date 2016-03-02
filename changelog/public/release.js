@@ -75,12 +75,13 @@ module.exports = function(){
                                                 // Make the release!
                                                 exec(command, function(err, stdout, stderr){
 
-                                                    // Stop the spinner
-                                                    spinner.stop();
-
                                                     if (err){
                                                         changelog.display("Could not perform release", "Fatal");
                                                     } else {
+
+                                                        spinner.stop();
+                                                        changelog.display("Pushed to GitHub, uploading release data for publishing");
+                                                        spinner.start();
 
                                                         // Make sure the changelog has content
                                                         if (docs.length > 0 && Object.keys(docs[0].content).length > 0){
@@ -115,12 +116,15 @@ module.exports = function(){
                                                                 prerelease: false
                                                            }, function(err, data){
 
-                                                               // If error, throw
-                                                               if (err)
-                                                                   throw err;
+                                                               // Stop the spinner
+                                                               spinner.stop();
 
-                                                               // Notify user
-                                                               changelog.display("v" + version + " has been published on GitHub");
+                                                                // If error, notify
+                                                                if (err) {
+                                                                   changelog.display("There was an error publishing the release to GitHub", "Warning");
+                                                                } else {
+                                                                   changelog.display("v" + version + " has been published on GitHub");
+                                                                }
 
                                                            });
 
