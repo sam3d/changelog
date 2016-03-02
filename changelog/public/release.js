@@ -47,7 +47,7 @@ module.exports = function(){
                                         scopes: ['repo', 'public_repo'],
                                         note: "Allows the changelog CLI to publish releases",
                                         userAgent: "changelogapp"
-                                    }, function(err, data){
+                                    }, function(err, auth){
 
                                         // If there is an error, notify
                                         if (err){
@@ -69,7 +69,7 @@ module.exports = function(){
                                                 command += "git push origin master && git push origin v" + version;
 
                                                 // Show the progress spinner
-                                                changelog.display("Creating new commit and tag v" + version + " and pushing to github");
+                                                changelog.display("Creating new commit and tag v" + version + " and pushing to GitHub");
                                                 spinner.start();
 
                                                 // Make the release!
@@ -78,8 +78,58 @@ module.exports = function(){
                                                     // Stop the spinner
                                                     spinner.stop();
 
-                                                    // Publish the release
-                                                    
+                                                    if (err){
+                                                        changelog.display("Could not perform release", "Fatal");
+                                                    } else {
+
+                                                        // Make sure the changelog has content
+                                                        if (docs.length > 0 && Object.keys(docs[0].content).length > 0){
+
+                                                            // Store the release data
+                                                            var itemString = "";
+
+                                                            // Loop over the content
+                                                            for (var key in docs[0].content) {
+                                                                if (docs[0].content.hasOwnProperty(key)) {
+
+                                                                    itemString += "\n### " + key + "";
+                                                                    for (var i = 0; i < docs[0].content[key].length; i++) {
+                                                                        itemString += "\n- " + docs[0].content[key][i];
+                                                                        if (i === (docs[0].content[key].length - 1)) {
+                                                                            itemString += "\n";
+                                                                        }
+                                                                    }
+
+                                                                }
+                                                            }
+
+                                                            // Publish the release
+                                                            publishRelease({
+                                                                token: auth.token,
+                                                                owner: remote.owner,
+                                                                repo: remote.name,
+                                                                tag: "v" + version,
+                                                                name: "v" + version,
+                                                                draft: false,
+                                                                notes: itemString.trim(),
+                                                                prerelease: false
+                                                           }, function(err, data){
+
+                                                               // If error, throw
+                                                               if (err)
+                                                                   throw err;
+
+                                                               // Notify user
+                                                               changelog.display("v" + version + " has been published on GitHub");
+
+                                                           });
+
+
+                                                        } else {
+                                                            changelog.display("There was no content in the changelog to copy", "Fatal");
+                                                        }
+
+                                                    }
 
                                                 });
 
