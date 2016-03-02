@@ -44,7 +44,7 @@ module.exports = function(){
 
 
                     } else {
-                        changelog.display("There was no content in the changelog to copy", "Fatal");
+                        changelog.display("There was no content in the changelog to copy", "fatal");
                     }
 
                 }

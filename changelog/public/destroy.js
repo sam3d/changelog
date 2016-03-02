@@ -10,7 +10,7 @@ module.exports = function(){
             // Found the file, delete it
             fs.unlink("CHANGELOG.md", function(err){
                 if (err) {
-                    changelog.display("Could not delete the CHANGELOG.md file", "Fatal");
+                    changelog.display("Could not delete the CHANGELOG.md file", "fatal");
                 } else {
                     changelog.display("Removed CHANGELOG.md file from current directory");
                 }

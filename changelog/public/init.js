@@ -14,7 +14,7 @@ module.exports = function(){
             // Write the file
             fs.writeFile("CHANGELOG.md", text, function(err){
                 if (err) {
-                    changelog.display("Could not write a new changelog file", "Fatal");
+                    changelog.display("Could not write a new changelog file", "fatal");
                 } else {
                     console.log("Initialized empty CHANGELOG.md file in " + process.cwd());
                 }

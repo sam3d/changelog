@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Fixed
+- Error handling used to throw "Fatal" with a capital letter where it should have been "fatal". All of the throws that are fatal have been updated to use the lowercase version.
+
 ## 0.3.4 - 2016-03-02
 ### Added
 - Better logging and error handling for `release` command.

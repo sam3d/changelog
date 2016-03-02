@@ -64,14 +64,14 @@ module.exports = function(type){
                     // Create .UPDATE_EDITMSG file with above contents and open $EDITOR
                     fs.writeFile(".UPDATE_EDITMSG", msg, function(err){
                         if (err){
-                            changelog.display("Could not create temporary file in " + process.cwd(), "Fatal");
+                            changelog.display("Could not create temporary file in " + process.cwd(), "fatal");
                         } else {
                             editor(".UPDATE_EDITMSG", function(code, sig){
 
                                 // Get the content from the file
                                 fs.readFile(".UPDATE_EDITMSG", "utf8", function(err, contents){
                                     if (err){
-                                        changelog.display("Could not read from temporary file in " + process.cwd(), "Fatal");
+                                        changelog.display("Could not read from temporary file in " + process.cwd(), "fatal");
                                     } else {
 
                                         // Delete/clean-up the temporary file
@@ -108,7 +108,7 @@ module.exports = function(type){
                                             changelog.stringify(output, function(err, data){
                                                 fs.writeFile("CHANGELOG.md", data, function(err){
                                                     if (err){
-                                                        changelog.display("Could not write updated changelog", "Fatal");
+                                                        changelog.display("Could not write updated changelog", "fatal");
                                                     } else {
 
                                                         // Make sure pluralisation of "item" is correct

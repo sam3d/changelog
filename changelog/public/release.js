@@ -25,7 +25,7 @@ module.exports = function(){
                     // Attempt to get the remotes
                     exec("git remote -v", function(err, stdout, stderr){
                         if (err || stderr){
-                            changelog.display("Could not get git remotes. Are you sure this is a git repository?", "Fatal");
+                            changelog.display("Could not get git remotes. Are you sure this is a git repository?", "fatal");
                         } else {
 
                             // Split the remotes
@@ -51,7 +51,7 @@ module.exports = function(){
 
                                         // If there is an error, notify
                                         if (err){
-                                            changelog.display("Could not authenticate you with GitHub", "Fatal");
+                                            changelog.display("Could not authenticate you with GitHub", "fatal");
                                         } else {
 
                                             // Make sure latest version has been released
@@ -76,7 +76,7 @@ module.exports = function(){
                                                 exec(command, function(err, stdout, stderr){
 
                                                     if (err){
-                                                        changelog.display("Could not perform release", "Fatal");
+                                                        changelog.display("Could not perform release", "fatal");
                                                     } else {
 
                                                         spinner.stop();
@@ -130,7 +130,7 @@ module.exports = function(){
 
 
                                                         } else {
-                                                            changelog.display("There was no content in the changelog to copy", "Fatal");
+                                                            changelog.display("There was no content in the changelog to copy", "fatal");
                                                         }
 
                                                     }
@@ -138,7 +138,7 @@ module.exports = function(){
                                                 });
 
                                             } else {
-                                                changelog.display("The CHANGELOG.md has unreleased content, could not release", "Fatal");
+                                                changelog.display("The CHANGELOG.md has unreleased content, could not release", "fatal");
                                             }
 
                                         }
@@ -148,7 +148,7 @@ module.exports = function(){
                                 } else {
 
                                     // Not a git URL
-                                    changelog.display("The remote 'origin' does not contain a correct git url", "Fatal");
+                                    changelog.display("The remote 'origin' does not contain a correct git url", "fatal");
 
                                 }
 

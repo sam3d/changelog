@@ -29,7 +29,7 @@ module.exports = function(output){
                                 // Write the file
                                 fs.writeFile(output, JSON.stringify(docs, null, 4), function(err){
                                     if (err) {
-                                        changelog.display("There was an error writing " + output + " in the current directory", "Fatal");
+                                        changelog.display("There was an error writing " + output + " in the current directory", "fatal");
                                     } else {
                                         changelog.display("CHANGELOG.md parsed to " + process.cwd() + "/" + output);
                                     }
@@ -37,7 +37,7 @@ module.exports = function(output){
 
                             } else {
 
-                                changelog.display(output + " already exists in the current directory", "Fatal");
+                                changelog.display(output + " already exists in the current directory", "fatal");
 
                             }
 
