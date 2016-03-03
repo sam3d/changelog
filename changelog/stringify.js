@@ -1,4 +1,4 @@
-module.exports = function(data, callback){
+module.exports = function(data, callback) {
 
     // The final string output
     var output = "# Change Log\nAll notable changes to this project will be documented in this file.\nThis project adheres to [Semantic Versioning](http://semver.org/).\n\n";
@@ -8,7 +8,7 @@ module.exports = function(data, callback){
     try {
 
         // Loop over the data
-        for (var i = 0; i < data.length; i++){
+        for (var i = 0; i < data.length; i++) {
 
             // Get release data
             var release = data[i];
@@ -42,13 +42,13 @@ module.exports = function(data, callback){
 
             // Loop over expected content in the correct order
             var headers = ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"];
-            for (var j = 0; j < headers.length; j++){
+            for (var j = 0; j < headers.length; j++) {
 
                 // Get the header
                 var header = headers[j];
 
                 // Check whether it exists
-                if (release.content[header]){
+                if (release.content[header]) {
 
                     // It exists, loop over inner content
                     releaseString += "\n### " + header;

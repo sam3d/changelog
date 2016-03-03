@@ -1,4 +1,4 @@
-module.exports = function(data, callback){
+module.exports = function(data, callback) {
 
     // Final output JSON
     var docs = [];
@@ -12,7 +12,7 @@ module.exports = function(data, callback){
         data = ""; // Clear out data
 
         // Loop over the newlines
-        for (var i = 0; i < newLines.length; i++){
+        for (var i = 0; i < newLines.length; i++) {
 
             // Get the line
             var line = newLines[i];
@@ -32,7 +32,7 @@ module.exports = function(data, callback){
         var releases = data.split("\n## ").slice(1); // Seperate by markdown headers
 
         // Loop over the releases and create final object
-        for (var i = 0; i < releases.length; i++){
+        for (var i = 0; i < releases.length; i++) {
 
             // Get release data
             var release = releases[i];
@@ -50,14 +50,14 @@ module.exports = function(data, callback){
             // Extract the headers and content
             var headers = release.split("\n### ");
             headers.splice(0, 1);
-            for (var j = 0; j < headers.length; j++){
+            for (var j = 0; j < headers.length; j++) {
 
                 // Get the titles and put them in the object
                 var header = headers[j].split("\n")[0];
                 var notes = headers[j].split("\n- ");
                 notes.splice(0, 1);
 
-                for (var k = 0; k < notes.length; k++){
+                for (var k = 0; k < notes.length; k++) {
                     notes[k] = notes[k].split("\n").join(" ").trim();
                 }
 
@@ -75,7 +75,7 @@ module.exports = function(data, callback){
             });
         }
 
-    } catch(e) {
+    } catch (e) {
         err = e;
     }
 

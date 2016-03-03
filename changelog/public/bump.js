@@ -2,21 +2,21 @@
 var semver = require("semver");
 var fs = require("fs");
 
-module.exports = function(type){
+module.exports = function(type) {
 
     // Make sure changelog file exists
-    fs.readFile("CHANGELOG.md", "utf8", function(err, data){
-        if (!err){
+    fs.readFile("CHANGELOG.md", "utf8", function(err, data) {
+        if (!err) {
 
             // File does exist, give contents to parse function
-            changelog.parse(data, function(err, docs){
+            changelog.parse(data, function(err, docs) {
 
                 if (err) {
                     changelog.display(null, parseError);
                 } else {
 
                     // Make sure there is content to bump
-                    if (docs[0].released || Object.keys(docs[0].content).length === 0){
+                    if (docs[0].released || Object.keys(docs[0].content).length === 0) {
                         changelog.display("No CHANGELOG.md content available to perform version bump", "Fatal");
                     } else {
 
@@ -32,9 +32,9 @@ module.exports = function(type){
                             docs[0].date = new Date();
 
                             // Save the updated file
-                            changelog.stringify(docs, function(err, output){
-                                fs.writeFile("CHANGELOG.md", output, function(err){
-                                    if (err){
+                            changelog.stringify(docs, function(err, output) {
+                                fs.writeFile("CHANGELOG.md", output, function(err) {
+                                    if (err) {
                                         changelog.display("Could not write the updated changelog data to CHANGELOG.md", "Fatal");
                                     } else {
                                         changelog.display("Updated from " + version + " -> " + type);
@@ -43,12 +43,12 @@ module.exports = function(type){
                             });
 
                             // Attempt to read the package.json file and bump
-                            fs.readFile("package.json", "utf8", function(err, data){
-                                if (!err){
+                            fs.readFile("package.json", "utf8", function(err, data) {
+                                if (!err) {
                                     data = JSON.parse(data);
                                     data.version = docs[0].version;
-                                    fs.writeFile("package.json", JSON.stringify(data, null, 2), function(err){
-                                        if (!err){
+                                    fs.writeFile("package.json", JSON.stringify(data, null, 2), function(err) {
+                                        if (!err) {
                                             console.log("found: package.json and updated version");
                                         }
                                     });
@@ -69,9 +69,9 @@ module.exports = function(type){
                                     docs[0].date = new Date();
 
                                     // Save the updated file
-                                    changelog.stringify(docs, function(err, output){
-                                        fs.writeFile("CHANGELOG.md", output, function(err){
-                                            if (err){
+                                    changelog.stringify(docs, function(err, output) {
+                                        fs.writeFile("CHANGELOG.md", output, function(err) {
+                                            if (err) {
                                                 changelog.display("Could not write the updated changelog data to CHANGELOG.md", "Fatal");
                                             } else {
                                                 changelog.display("Updated from " + version + " -> " + docs[0].version);
@@ -80,12 +80,12 @@ module.exports = function(type){
                                     });
 
                                     // Attempt to read the package.json file and bump
-                                    fs.readFile("package.json", "utf8", function(err, data){
-                                        if (!err){
+                                    fs.readFile("package.json", "utf8", function(err, data) {
+                                        if (!err) {
                                             data = JSON.parse(data);
                                             data.version = docs[0].version;
-                                            fs.writeFile("package.json", JSON.stringify(data, null, 2), function(err){
-                                                if (!err){
+                                            fs.writeFile("package.json", JSON.stringify(data, null, 2), function(err) {
+                                                if (!err) {
                                                     console.log("found: package.json and updated version");
                                                 }
                                             });

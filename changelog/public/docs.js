@@ -1,7 +1,7 @@
 // Dependencies
 var colors = require("colors/safe");
 
-module.exports = function(){
+module.exports = function() {
     console.log("usage: changelog <command> [<args>]\n");
     console.log("Basic Commands:");
     console.log("   help      List the documentation");

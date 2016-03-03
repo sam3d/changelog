@@ -2,7 +2,9 @@
 
 // Load all required files
 var requireDir = require("require-dir");
-changelog = requireDir("./changelog", {recurse: true});
+changelog = requireDir("./changelog", {
+    recurse: true
+});
 
 // If called as a command line app
 if (require.main === module) {
@@ -18,19 +20,19 @@ if (require.main === module) {
     } else {
 
         // Command line arguments specified, go through them
-        switch(process.argv[0]) {
+        switch (process.argv[0]) {
 
             // Show the help
             case "help":
                 changelog.public.docs();
                 break;
 
-            // Initialize a blank changelog file
+                // Initialize a blank changelog file
             case "init":
                 changelog.public.init();
                 break;
 
-            // Destroy any changelog file
+                // Destroy any changelog file
             case "destroy":
                 changelog.public.destroy();
                 break;
@@ -43,7 +45,7 @@ if (require.main === module) {
                 }
                 break;
 
-            // A core changelog function
+                // A core changelog function
             case "add":
             case "change":
             case "deprecate":
@@ -53,28 +55,28 @@ if (require.main === module) {
                 changelog.public.update(process.argv[0]);
                 break;
 
-            // Bump the version number
+                // Bump the version number
             case "bump":
                 changelog.public.bump(process.argv[1]);
                 break;
 
-            // Copy the current version to the clipboard
+                // Copy the current version to the clipboard
             case "copy":
                 changelog.public.copy();
                 break;
 
-            // GitHub releases integration
+                // GitHub releases integration
             case "release":
                 changelog.public.release();
                 break;
 
-            // Show the changelog status
+                // Show the changelog status
             case "status":
                 changelog.public.status();
                 break;
 
-            // Unavailable functionality
-            // case null:
+                // Unavailable functionality
+                // case null:
                 // changelog.display("'"  + process.argv[0] + "' is not available yet. Sorry :/");
 
             default:

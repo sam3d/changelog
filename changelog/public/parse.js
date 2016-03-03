@@ -1,20 +1,20 @@
 // Dependencies
 var fs = require("fs");
 
-module.exports = function(output){
+module.exports = function(output) {
 
     // Find out if file exists
-    fs.readFile("CHANGELOG.md", "utf8", function(err, data){
+    fs.readFile("CHANGELOG.md", "utf8", function(err, data) {
         if (!err) {
 
             // File does exist, give contents to parse function
-            changelog.parse(data, function(err, docs){
+            changelog.parse(data, function(err, docs) {
 
                 if (err) {
                     changelog.display(null, "parseError");
                 } else {
 
-                    if (output){
+                    if (output) {
 
                         // If filename extension not included
                         if (output.split(".").length < 2) {
@@ -22,12 +22,12 @@ module.exports = function(output){
                         }
 
                         // Make sure file doesn't already exist
-                        fs.stat(output, function(err, stats){
+                        fs.stat(output, function(err, stats) {
 
                             if (err) {
 
                                 // Write the file
-                                fs.writeFile(output, JSON.stringify(docs, null, 4), function(err){
+                                fs.writeFile(output, JSON.stringify(docs, null, 4), function(err) {
                                     if (err) {
                                         changelog.display("There was an error writing " + output + " in the current directory", "fatal");
                                     } else {

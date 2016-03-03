@@ -1,14 +1,14 @@
 // Dependencies
 var fs = require("fs");
 
-module.exports = function(){
+module.exports = function() {
 
     // Find out if file exists
-    fs.stat("CHANGELOG.md", function(err, stats){
+    fs.stat("CHANGELOG.md", function(err, stats) {
         if (!err) {
 
             // Found the file, delete it
-            fs.unlink("CHANGELOG.md", function(err){
+            fs.unlink("CHANGELOG.md", function(err) {
                 if (err) {
                     changelog.display("Could not delete the CHANGELOG.md file", "fatal");
                 } else {
