@@ -86,24 +86,6 @@ module.exports = function() {
                                                         // Make sure the changelog has content
                                                         if (docs.length > 0 && Object.keys(docs[0].content).length > 0) {
 
-                                                            // Store the release data
-                                                            var itemString = "";
-
-                                                            // Loop over the content
-                                                            for (var key in docs[0].content) {
-                                                                if (docs[0].content.hasOwnProperty(key)) {
-
-                                                                    itemString += "\n### " + key + "";
-                                                                    for (var i = 0; i < docs[0].content[key].length; i++) {
-                                                                        itemString += "\n- " + docs[0].content[key][i];
-                                                                        if (i === (docs[0].content[key].length - 1)) {
-                                                                            itemString += "\n";
-                                                                        }
-                                                                    }
-
-                                                                }
-                                                            }
-
                                                             // Publish the release
                                                             publishRelease({
                                                                 token: auth.token,
@@ -112,7 +94,7 @@ module.exports = function() {
                                                                 tag: "v" + version,
                                                                 name: "v" + version,
                                                                 draft: false,
-                                                                notes: itemString.trim(),
+                                                                notes: changelog.stringifyIndex(docs),
                                                                 prerelease: false
                                                             }, function(err, data) {
 
