@@ -1,4 +1,4 @@
-# changelog [![npm version](https://badge.fury.io/js/changelogapp.svg)](https://badge.fury.io/js/changelogapp)
+# changelog [![npm version](https://badge.fury.io/js/changelogapp.svg)](https://badge.fury.io/js/changelogapp) [![Dependency Status](https://david-dm.org/samholmes1337/changelog.svg)](https://david-dm.org/samholmes1337/changelog)
 Easily create, manage and maintain [changelogs](http://keepachangelog.com)
 
 ![Demonstration](http://i.imgur.com/GQMsC7n.gif)
