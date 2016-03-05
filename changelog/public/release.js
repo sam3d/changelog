@@ -96,20 +96,27 @@ module.exports = function() {
                                                                 draft: false,
                                                                 notes: changelog.stringifyIndex(docs),
                                                                 prerelease: false
-                                                            }, function(err, data) {
+                                                            }, function(err, release) {
 
                                                                 // Stop the spinner
                                                                 spinner.stop();
 
+                                                                // Show the data
+                                                                console.log(release);
+
                                                                 // If error, notify
                                                                 if (err) {
-                                                                    changelog.display("There was an error publishing the release to GitHub", "Warning");
+                                                                    changelog.display("There was an error publishing the release to GitHub", "warning");
+                                                                } else if (release.errors > 0) {
+                                                                    changelog.display("GitHub API provided the following error(s)", "warning");
+                                                                    for (var i = 0; i < release.errors; i++){
+                                                                        console.log("--> " + release.errors[i].message);
+                                                                    }
                                                                 } else {
                                                                     changelog.display("v" + version + " has been published on GitHub");
                                                                 }
 
                                                             });
-
 
                                                         } else {
                                                             changelog.display("There was no content in the changelog to copy", "fatal");
