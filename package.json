@@ -30,12 +30,14 @@
     "editor": "^1.0.0",
     "file-exists": "^1.0.0",
     "ghauth": "^3.2.0",
+    "inquirer": "^0.12.0",
     "is-git-url": "^0.2.3",
     "moment": "^2.11.2",
     "parse-github-url": "^0.3.0",
     "publish-release": "^1.2.0",
     "require-dir": "^0.3.0",
     "semver": "^5.1.0",
-    "simple-spinner": "0.0.5"
+    "simple-spinner": "0.0.5",
+    "underscore": "^1.8.3"
   }
 }
