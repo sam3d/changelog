@@ -86,37 +86,40 @@ module.exports = function() {
                                                         // Make sure the changelog has content
                                                         if (docs.length > 0 && Object.keys(docs[0].content).length > 0) {
 
-                                                            // Publish the release
-                                                            publishRelease({
-                                                                token: auth.token,
-                                                                owner: remote.owner,
-                                                                repo: remote.name,
-                                                                tag: "v" + version,
-                                                                name: "v" + version,
-                                                                draft: false,
-                                                                notes: changelog.stringifyIndex(docs),
-                                                                prerelease: false
-                                                            }, function(err, release) {
+                                                            // Perform a timeout to make sure tag has time to upload
+                                                            spinner.stop();
+                                                            changelog.display("Waiting 8 seconds to make sure upload completed successfully");
+                                                            spinner.start();
+                                                            setTimeout(function(){
+                                                                // Publish the release
+                                                                publishRelease({
+                                                                    token: auth.token,
+                                                                    owner: remote.owner,
+                                                                    repo: remote.name,
+                                                                    tag: "v" + version,
+                                                                    name: "v" + version,
+                                                                    draft: false,
+                                                                    notes: changelog.stringifyIndex(docs),
+                                                                    prerelease: false
+                                                                }, function(err, release) {
 
-                                                                // Stop the spinner
-                                                                spinner.stop();
+                                                                    // Stop the spinner
+                                                                    spinner.stop();
 
-                                                                // Show the data
-                                                                console.log(release);
-
-                                                                // If error, notify
-                                                                if (err) {
-                                                                    changelog.display("There was an error publishing the release to GitHub", "warning");
-                                                                } else if (release.errors > 0) {
-                                                                    changelog.display("GitHub API provided the following error(s)", "warning");
-                                                                    for (var i = 0; i < release.errors; i++){
-                                                                        console.log("--> " + release.errors[i].message);
+                                                                    // If error, notify
+                                                                    if (err) {
+                                                                        changelog.display("There was an error publishing the release to GitHub", "warning");
+                                                                    } else if (release.errors > 0) {
+                                                                        changelog.display("GitHub API provided the following error(s)", "warning");
+                                                                        for (var i = 0; i < release.errors; i++){
+                                                                            console.log("--> " + release.errors[i].message);
+                                                                        }
+                                                                    } else {
+                                                                        changelog.display("v" + version + " has been published on GitHub");
                                                                     }
-                                                                } else {
-                                                                    changelog.display("v" + version + " has been published on GitHub");
-                                                                }
 
-                                                            });
+                                                                });
+                                                            }, 6000);
 
                                                         } else {
                                                             changelog.display("There was no content in the changelog to copy", "fatal");
