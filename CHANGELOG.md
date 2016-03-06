@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Fixed
+- Sometimes the release would fail because it would attempt to publish the release before the tag data push completed. This would then attempt to create a new release on a non-existent tag and fail. A new waiting period has been introduced to make sure it has uploaded.
+
 ## 0.3.5 - 2016-03-03
 ### Fixed
 - Error handling used to throw "Fatal" with a capital letter where it should have been "fatal". All of the throws that are fatal have been updated to use the lowercase version.
