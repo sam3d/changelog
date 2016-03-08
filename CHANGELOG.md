@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 0.3.6 - 2016-03-08
 ### Fixed
 - Sometimes the release would fail because it would attempt to publish the release before the tag data push completed. This would then attempt to create a new release on a non-existent tag and fail. A new waiting period has been introduced to make sure it has uploaded.
 
