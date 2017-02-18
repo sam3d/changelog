@@ -1,7 +1,7 @@
 {
   "name": "changelogapp",
   "main": "changelog.js",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "easily create, manage and maintain changelogs",
   "author": "Sam Holmes",
   "preferGlobal": true,
