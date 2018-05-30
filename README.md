@@ -6,8 +6,8 @@ Easily create, manage and maintain [changelogs](http://keepachangelog.com)
 [![NPM](https://nodei.co/npm/changelogapp.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/changelogapp/)
 
 ## Installation
-This project can be used as both a command line application and as a module. 
-A simple API is currently available that gives access to _changelog_ functions as an npm module. 
+This project can be used as both a command line application and as a module.
+A simple API is currently available that gives access to _changelog_ functions as an npm module.
 
 To install as a command line application, run the following:
 
@@ -15,8 +15,7 @@ To install as a command line application, run the following:
 $ npm install changelogapp -g
 ```
 
-As an aside, if you have `vim` set as your `$EDITOR`, then do make sure that in your 
-`~/.vimrc`, file you add the following line (to enable spellcheck and non-destructive line-wrapping):
+As an aside, if you have `vim` set as your `$EDITOR`, then make sure that in your `~/.vimrc` file you add the following line (to enable spellcheck and non-destructive line-wrapping):
 
 ```
 " Enable spellcheck and wrap for changelog edit messages
@@ -25,7 +24,7 @@ autocmd VimEnter .UPDATE_EDITMSG setlocal spell linebreak wrap
 
 ## Command line usage
 
-Navigate to the directory that you wish to create and modify changelogs in. 
+Navigate to the directory that you wish to create and modify changelogs in.
 
 ```console
 $ changelog <command> [<args>]
@@ -42,9 +41,9 @@ Below are the commands that can be run from the command line:
 | `status` | Print out changelog information, including the current version and a summary of the changes made |
 
 ### Changelog commands
-`add`, `change`, `deprecate`, `remove`, `fix`, and `secure` as arguments all serve the same 
-purpose of updating the `Unreleased` section of the changelog with content (corresponding 
-to the [keepachangelog](http://keepachangelog.com) categories). 
+`add`, `change`, `deprecate`, `remove`, `fix`, and `secure` as arguments all serve the same
+purpose of updating the `Unreleased` section of the changelog with content (corresponding
+to the [keepachangelog](http://keepachangelog.com) categories).
 
 It will open `$EDITOR`, at which point you can enter the changes made prevalent to that category, separating each new item with a new line.
 
@@ -160,4 +159,3 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Currently, _changelog_ is very much in beta and a few things may not work perfectly. The most notable case being the fact that the parsing algorithm doesn't handle non-keepachangelog-style changelogs very well (if at all).
 
 While support for changelogs that don't conform to this standard is not planned, if you have a CHANGELOG.md file that you believe should be supported, then create a new issue with the CHANGELOG.md file attached and a description of any errors you get.
-
