@@ -1,9 +1,3 @@
-# Deprecation warning
-I haven't used or updated this in a _long_ time, so please use with caution and be aware that a lot of things probably won't work.
-
-
-If there is an actual use for something like this again, then I'll continue working on it! But as for right now I'm afraid I don't have time :(
-
 # changelog [![npm version](https://badge.fury.io/js/changelogapp.svg)](https://badge.fury.io/js/changelogapp) [![Dependency Status](https://david-dm.org/samholmes1337/changelog.svg)](https://david-dm.org/samholmes1337/changelog)
 Easily create, manage and maintain [changelogs](http://keepachangelog.com)
 
@@ -43,7 +37,7 @@ Below are the commands that can be run from the command line:
 |---|---|
 | `help` | List the documentation |
 | `init` | Initialize a blank `CHANGELOG.md` file in the current directory |
-| `parse [filename]` | Parse the `CHANGELOG.md` file to JSON format. If no filename is specified the JSON will be printed to _stdout_, and if it is then the JSON will be saved to the filename specified in the current directory (if no file extension given, it will default to `.json`) |
+| `parse` | Parse the `CHANGELOG.md` file to JSON format |
 | `status` | Print out changelog information, including the current version and a summary of the changes made |
 
 ### Changelog commands
@@ -59,7 +53,6 @@ It will open `$EDITOR`, at which point you can enter the changes made prevalent 
 |---|---|
 | `bump [version \| patch \| minor \| major]` | This command will bump the `Unreleased` header to the next desired version. If no argument is specified a _patch_ update will automatically be applied. You can specify your own version (provided it adheres to [Semantic Versioning](http://semver.org)) or you can specify a _patch_, _minor_ or _major_ jump |
 | `copy` | Copy the contents of the latest release item to the clipboard in markdown format |
-| `release` | Create a new commit and tag with the version number and publish the release to GitHub |
 
 
 ## API usage
@@ -72,8 +65,8 @@ Currently you can `parse` changelogs to JSON format and `stringify` the result b
 
 ### Parsing a changelog
 ```javascript
-var changelog = require("changelogapp");
-var fs = require("fs");
+const changelog = require("changelogapp");
+const fs = require("fs");
 
 // Get the CHANGELOG.md file
 fs.readFile("CHANGELOG.md", "utf8", function(err, docs){
@@ -122,9 +115,9 @@ For the above example, the output will be:
 
 ### Stringify the JSON data back to markdown
 ```javascript
-var changelog = require("changelogapp");
-var fs = require("fs");
-var parsedChangelog = require("./parsed-changelog.json");
+const changelog = require("changelogapp");
+const fs = require("fs");
+const parsedChangelog = require("./parsed-changelog.json");
 
 // Stringify the JSON
 changelog.stringify(parsedChangelog, function(err, data){

@@ -7,11 +7,11 @@
   "preferGlobal": true,
   "license": "GPL-3.0",
   "bin": {
-    "changelog": "changelog.js"
+    "changelog": "cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/samholmes1337/changelog.git"
+    "url": "git://github.com/sam3d/changelog.git"
   },
   "keywords": [
     "changelog",
@@ -22,20 +22,14 @@
     "commit"
   ],
   "bugs": {
-    "url": "https://github.com/samholmes1337/changelog/issues"
+    "url": "https://github.com/sam3d/changelog/issues"
   },
   "dependencies": {
-    "colors": "^1.1.2",
+    "chalk": "^2.4.1",
     "copy-paste": "^1.3.0",
     "editor": "^1.0.0",
-    "file-exists": "^3.0.1",
-    "ghauth": "^3.2.1",
-    "is-git-url": "^0.2.3",
-    "moment": "^2.17.1",
-    "parse-github-url": "^1.0.0",
-    "publish-release": "^1.3.3",
-    "require-dir": "^0.3.1",
-    "semver": "^5.3.0",
-    "simple-spinner": "0.0.5"
+    "fs-extra": "^6.0.1",
+    "moment": "^2.22.2",
+    "semver": "^5.5.0"
   }
 }
