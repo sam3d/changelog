@@ -225,21 +225,109 @@ const cli = {
 
     async parse() {
         let changelog = await read();
-        let parsed = parse(changelog);
-        let formatted = JSON.stringify(parsed, null, 4);
+        changelog = parse(changelog);
+        let string = JSON.stringify(changelog, null, 4);
 
-        console.log(formatted);
+        console.log(string);
+    },
+
+    // TODO: Refactor this as most of it was just copied over
+    async status() {
+        let changelog = await read();
+        changelog = parse(changelog);
+
+        // The final status information
+        var statusString = "";
+
+        // Get information about the changelog
+        if (!changelog[0].released) {
+            if (changelog.length > 1) {
+                statusString += "There have been " + (changelog.length - 1) + " versions released";
+                statusString += "\nThe most recent of these being v" + changelog[1].version + " from " + moment(changelog[1].date).fromNow();
+            } else {
+                statusString += "The changelog has no releases to show";
+            }
+
+            // Check whether there is any unreleased content
+            if (changelog[0].content) {
+
+                statusString += "\n\nUnreleased content:\n  (use \"changelog bump [version | patch | minor | major]\" to release)\n";
+
+                // Loop over the content
+                for (var key in changelog[0].content) {
+                    if (changelog[0].content.hasOwnProperty(key)) {
+
+                        // Contain the inner string of the item
+                        var itemString = "";
+
+                        itemString += "\n  " + key + ":";
+                        for (var i = 0; i < changelog[0].content[key].length; i++) {
+                            itemString += "\n    - " + changelog[0].content[key][i];
+                            if (i === (changelog[0].content[key].length - 1)) {
+                                itemString += "\n";
+                            }
+                        }
+
+                        // Add the item string to the status string with colors
+                        switch (key) {
+                            case "Added":
+                                statusString += chalk.green(itemString);
+                                break;
+                            case "Changed":
+                                statusString += chalk.yellow(itemString);
+                                break;
+                            case "Deprecated":
+                                statusString += chalk.grey(itemString);
+                                break;
+                            case "Removed":
+                                statusString += chalk.red(itemString);
+                                break;
+                            case "Fixed":
+                                statusString += chalk.blue(itemString);
+                                break;
+                            case "Security":
+                                statusString += chalk.magenta(itemString);
+                                break;
+                            default:
+                                statusString += itemString;
+                                break;
+                        }
+
+                    }
+                }
+
+            } else {
+                statusString += "\nThere is no content in \"Unreleased\" to show";
+            }
+
+        } else {
+
+            if (changelog.length === 1) {
+                statusString += "There has been " + changelog.length + " version released";
+            } else if (changelog.length > 1) {
+                statusString += "There have been " + changelog.length + " versions released";
+            }
+
+            if (changelog.length > 0) {
+                statusString += "\nThe most recent of these being v" + changelog[0].version + " from " + moment(changelog[0].date).fromNow();
+            } else {
+                statusString += "The changelog has no releases to show";
+            }
+        }
+
+        // Write it to the console
+        console.log(statusString);
     },
 
     // TODO: Refactor this section, as it was just copied over
     async update(type) {
         let changelog = await read();
-        let output = parse(changelog);
+        changelog = parse(changelog);
 
         // Different words, phrases and text sections
-        var header = "";
-        var verb = "";
-        var past = "";
+        let header = "";
+        let verb = "";
+        let past = "";
 
         // Get the correct section header based on type
         switch (type) {
@@ -277,8 +365,8 @@ const cli = {
 
         // Add unreleased header if one is not already present
         var newHeader = ""; // To show an additional message after creation
-        if (!output.length) {
-            output.unshift({
+        if (!changelog.length) {
+            changelog.unshift({
                 version: "Unreleased",
                 released: false,
                 date: null,
@@ -286,8 +374,8 @@ const cli = {
                 content: {}
             });
             newHeader = "\n# There was no content - creating new \"Unreleased\" header.";
-        } else if (output[0].released) {
-            output.unshift({
+        } else if (changelog[0].released) {
+            changelog.unshift({
                 version: "Unreleased",
                 released: false,
                 date: null,
@@ -299,8 +387,8 @@ const cli = {
 
         // Generate update edit message
         var msg = "\n# Please enter what you have " + verb + " in this new version. Lines\n# starting with '#' will be ignored and an empty message aborts\n# the update. Multiple lines will be treated as multiple " + past + ".";
-        if (output.length > 1) {
-            msg += "\n# Currently on version " + output[1].version;
+        if (changelog.length > 1) {
+            msg += "\n# Currently on version " + changelog[1].version;
         }
         msg += newHeader;
         msg += "\n#";
@@ -339,17 +427,17 @@ const cli = {
                             } else {
 
                                 // Make sure header exists
-                                if (!output[0].content[header]) {
-                                    output[0].content[header] = [];
+                                if (!changelog[0].content[header]) {
+                                    changelog[0].content[header] = [];
                                 }
 
                                 // For each update item, add it to the changelog
                                 for (var i = 0; i < items.length; i++) {
-                                    output[0].content[header].push(items[i]);
+                                    changelog[0].content[header].push(items[i]);
                                 }
 
                                 // Stringify and save to file
-                                let data = stringify(output);
+                                let data = stringify(changelog);
                                 fs.writeFile("CHANGELOG.md", data, function(err) {
                                     if (err) {
                                         console.log("Could not write updated changelog");
