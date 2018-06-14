@@ -37,7 +37,7 @@ Below are the commands that can be run from the command line:
 |---|---|
 | `help` | List the documentation |
 | `init` | Initialize a blank `CHANGELOG.md` file in the current directory |
-| `parse [filename]` | Parse the `CHANGELOG.md` file to JSON format. If no filename is specified the JSON will be printed to _stdout_, and if it is then the JSON will be saved to the filename specified in the current directory (if no file extension given, it will default to `.json`) |
+| `parse` | Parse the `CHANGELOG.md` file to JSON format |
 | `status` | Print out changelog information, including the current version and a summary of the changes made |
 
 ### Changelog commands

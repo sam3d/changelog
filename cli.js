@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 const chalk = require("chalk");
+
 const changelog = require("./changelog");
+const { cli } = changelog;
+
 const isModule = !(require.main === module);
 const args = process.argv;
 
@@ -24,13 +27,9 @@ function parseArgs() {
 
     switch (cmd) {
         case "help": printDocs(); break;
-        case "init": changelog.init(); break;
-        case "destroy": changelog.public.destroy(); break;
-
-        case "parse":
-            if (args[0]) changelog.public.parse(args[1]);
-            else changelog.public.parse();
-            break;
+        case "init": cli.init(); break;
+        case "destroy": cli.destroy(); break;
+        case "parse": cli.parse(); break;
 
         case "add":
         case "change":
