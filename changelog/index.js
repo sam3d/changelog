@@ -121,10 +121,10 @@ const cli = {
     },
 
     async parse() {
-        let data = await read();
-        let parsed = parse(data);
+        let changelog = await read();
+        let parsed = parse(changelog);
         let formatted = JSON.stringify(parsed, null, 4);
-        
+
         console.log(formatted);
     }
 };
