@@ -319,6 +319,29 @@ const cli = {
         console.log(statusString);
     },
 
+    async copy() {
+
+    },
+
+    async destroy() {
+        let file = path.join(cwd, filename);
+        let exists = await fs.pathExists(file);
+
+        if (exists) removeFile(file);
+        else fatal(`There is no ${filename} to remove in ${cwd}`);
+
+        async function removeFile(file) {
+            fs.remove(file, err => {
+                if (err) fatal(`Could not remove ${filename} in ${cwd}`);
+                else console.log(`Successfully removed ${filename} in ${cwd}`);
+            });
+        }
+    },
+
+    async bump() {
+
+    },
+
     // TODO: Refactor this section, as it was just copied over
     async update(type) {
         let changelog = await read();
