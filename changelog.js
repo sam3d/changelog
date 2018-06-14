@@ -349,7 +349,7 @@ const cli = {
 
         // Make sure there is content to bump
         if (changelog[0].released || Object.keys(changelog[0].content).length === 0) {
-            console.log("No CHANGELOG.md content available to perform version bump");
+            fatal(`No ${filename} content available to perform version bump`);
         } else {
 
             // Get the previous version
@@ -385,7 +385,7 @@ const cli = {
                         break;
 
                     default:
-                        console.log("'" + type + "' is not a valid version number or update type");
+                        fatal(`"${type}" is not a valid version number or update type`);
                 }
 
             }
@@ -470,14 +470,14 @@ const cli = {
         // Create .UPDATE_EDITMSG file with above contents and open $EDITOR
         fs.writeFile(".UPDATE_EDITMSG", msg, function(err) {
             if (err) {
-                console.log("Could not create temporary file in " + process.cwd());
+                fatal(`Could not create temporary file in ${cwd}`);
             } else {
                 editor(".UPDATE_EDITMSG", function(code, sig) {
 
                     // Get the content from the file
                     fs.readFile(".UPDATE_EDITMSG", "utf8", function(err, contents) {
                         if (err) {
-                            console.log("Could not read from temporary file in " + process.cwd());
+                            fatal(`Could not read from temporary file in ${cwd}`);
                         } else {
 
                             // Delete/clean-up the temporary file
@@ -497,7 +497,7 @@ const cli = {
 
                             // Abort if no content
                             if (items.length === 0) {
-                                console.log("No message was supplied so the update was aborted");
+                                fatal("No message was supplied, so the update was aborted");
                             } else {
 
                                 // Make sure header exists
@@ -514,7 +514,7 @@ const cli = {
                                 let data = stringify(changelog);
                                 fs.writeFile("CHANGELOG.md", data, function(err) {
                                     if (err) {
-                                        console.log("Could not write updated changelog");
+                                        fatal(`Could not write updated ${filename}`);
                                     } else {
 
                                         // Make sure pluralisation of "item" is correct
