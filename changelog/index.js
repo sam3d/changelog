@@ -1,8 +1,10 @@
 const fs = require("fs-extra");
 const path = require("path");
 const chalk = require("chalk");
+const editor = require("editor");
 
 const cwd = process.cwd();
+const filename = "CHANGELOG.md";
 
 function fatal(msg) {
     console.log(chalk.red(`fatal: ${msg}`));
@@ -10,16 +12,28 @@ function fatal(msg) {
 }
 
 async function read() {
-    let file = path.join(cwd, "CHANGELOG.md");
+    let file = path.join(cwd, filename);
 
     return new Promise(resolve => {
         fs.readFile(file, "utf8", (err, data) => {
-            if (err) fatal(`Could not find a CHANGELOG.md file in ${cwd}`);
+            if (err) fatal(`Could not find a ${filename} file in ${cwd}`);
             else resolve(data);
         });
     });
 }
 
+async function write(changelog) {
+    let file = path.join(cwd, filename);
+
+    return new Promise(resolve => {
+        fs.writeFile(file, err => {
+            if (err) fatal(`Could not write to ${filename}`);
+            else resolve();
+        });
+    });
+}
+
+// TODO: Refactor this section, as it was just copied over
 function parse(data) {
     var docs = [];
 
@@ -95,9 +109,98 @@ function parse(data) {
     return docs;
 }
 
+// TODO: Refactor this section, as it was just copied over
+function stringify(data) {
+    var output = "# Change Log\nAll notable changes to this project will be documented in this file.\nThis project adheres to [Semantic Versioning](http://semver.org/).\n\n";
+    var linkString = "";
+
+    // Loop over the data
+    for (var i = 0; i < data.length; i++) {
+
+        // Get release data
+        var release = data[i];
+
+        // Create the release string
+        var releaseString = "";
+
+        // Get the release version
+        if (release.link) {
+            releaseString = "## [" + release.version + "]";
+            linkString += "[" + release.version + "]: " + release.link + "\n";
+        } else {
+            releaseString = "## " + release.version;
+        }
+
+        // Get the release date
+        if (release.date) {
+            var date = new Date(release.date);
+
+            // Get properties from date object
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+
+            // Normalise the 0 values
+            month = month < 10 ? month = "0" + month : month;
+            day = day < 10 ? day = "0" + day : day;
+
+            releaseString += " - " + year + "-" + month + "-" + day;
+        }
+
+        // Loop over expected content in the correct order
+        var headers = ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"];
+        for (var j = 0; j < headers.length; j++) {
+
+            // Get the header
+            var header = headers[j];
+
+            // Check whether it exists
+            if (release.content[header]) {
+
+                // It exists, loop over inner content
+                releaseString += "\n### " + header;
+                for (var k = 0; k < release.content[header].length; k++) {
+                    releaseString += "\n- " + release.content[header][k];
+                    if (k === (release.content[header].length - 1)) {
+                        releaseString += "\n";
+                    }
+                }
+
+            }
+
+        }
+
+        // Loop over any additional custom headers
+        for (var key in release.content) {
+            if (release.content.hasOwnProperty(key) && headers.indexOf(key) === -1) {
+                releaseString += "\n### " + key;
+                for (var j = 0; j < release.content[key].length; j++) {
+                    releaseString += "\n- " + release.content[key][j];
+                    if (j === (release.content[key].length - 1)) {
+                        releaseString += "\n";
+                    }
+                }
+            }
+        }
+
+        // End line
+        releaseString += "\n";
+
+        // Place releaseString into the final output
+        output += releaseString;
+
+    }
+
+    // Add the links on the end
+    output += linkString + "\n";
+
+    // Callback
+    return output.trim() + "\n";
+}
+
 const cli = {
     init() {
-        let file = path.join(cwd, "CHANGELOG.md");
+        let file = path.join(cwd, filename);
 
         checkExists()
         .then(createNewFile)
@@ -106,7 +209,7 @@ const cli = {
         async function checkExists() {
             let exists = await fs.pathExists(file);
 
-            if (exists) throw `There is already a CHANGELOG.md file in ${cwd}`;
+            if (exists) throw `There is already a ${filename} file in ${cwd}`;
             else return;
         }
 
@@ -115,7 +218,7 @@ const cli = {
 
             fs.writeFile(file, header, err => {
                 if (err) throw "Could not write a new changelog file";
-                else console.log(`Initialized empty CHANGELOG.md in ${cwd}`);
+                else console.log(`Initialized empty ${filename} in ${cwd}`);
             });
         }
     },
@@ -126,6 +229,147 @@ const cli = {
         let formatted = JSON.stringify(parsed, null, 4);
 
         console.log(formatted);
+    },
+
+    // TODO: Refactor this section, as it was just copied over
+    async update(type) {
+        let changelog = await read();
+        let output = parse(changelog);
+
+        // Different words, phrases and text sections
+        var header = "";
+        var verb = "";
+        var past = "";
+
+        // Get the correct section header based on type
+        switch (type) {
+            case "add":
+                header = "Added";
+                verb = "added";
+                past = "additions";
+                break;
+            case "change":
+                header = "Changed";
+                verb = "changed";
+                past = "changes";
+                break;
+            case "deprecate":
+                header = "Deprecated";
+                verb = "deprecated";
+                past = "deprecations";
+                break;
+            case "remove":
+                header = "Removed";
+                verb = "removed";
+                past = "removals";
+                break;
+            case "fix":
+                header = "Fixed";
+                verb = "fixed";
+                past = "fixes";
+                break;
+            case "secure":
+                header = "Security";
+                verb = "secured";
+                past = "secures";
+                break;
+        }
+
+        // Add unreleased header if one is not already present
+        var newHeader = ""; // To show an additional message after creation
+        if (!output.length) {
+            output.unshift({
+                version: "Unreleased",
+                released: false,
+                date: null,
+                link: null,
+                content: {}
+            });
+            newHeader = "\n# There was no content - creating new \"Unreleased\" header.";
+        } else if (output[0].released) {
+            output.unshift({
+                version: "Unreleased",
+                released: false,
+                date: null,
+                link: null,
+                content: {}
+            });
+            newHeader = " - creating new \"Unreleased\" header.";
+        }
+
+        // Generate update edit message
+        var msg = "\n# Please enter what you have " + verb + " in this new version. Lines\n# starting with '#' will be ignored and an empty message aborts\n# the update. Multiple lines will be treated as multiple " + past + ".";
+        if (output.length > 1) {
+            msg += "\n# Currently on version " + output[1].version;
+        }
+        msg += newHeader;
+        msg += "\n#";
+
+        // Create .UPDATE_EDITMSG file with above contents and open $EDITOR
+        fs.writeFile(".UPDATE_EDITMSG", msg, function(err) {
+            if (err) {
+                console.log("Could not create temporary file in " + process.cwd());
+            } else {
+                editor(".UPDATE_EDITMSG", function(code, sig) {
+
+                    // Get the content from the file
+                    fs.readFile(".UPDATE_EDITMSG", "utf8", function(err, contents) {
+                        if (err) {
+                            console.log("Could not read from temporary file in " + process.cwd());
+                        } else {
+
+                            // Delete/clean-up the temporary file
+                            fs.unlink(".UPDATE_EDITMSG");
+
+                            // Perform validation on update contents
+                            var lines = contents.split("\n"); // Seperate into newlines
+                            var items = []; // An array of the actual items to add
+                            for (var i = 0; i < lines.length; i++) {
+
+                                // Ignore lines with absolutely no content or start with "#"
+                                if (lines[i].length > 0 && lines[i].split(" ").join("").split("")[0] !== "#") {
+                                    items.push(lines[i]);
+                                }
+
+                            }
+
+                            // Abort if no content
+                            if (items.length === 0) {
+                                console.log("No message was supplied so the update was aborted");
+                            } else {
+
+                                // Make sure header exists
+                                if (!output[0].content[header]) {
+                                    output[0].content[header] = [];
+                                }
+
+                                // For each update item, add it to the changelog
+                                for (var i = 0; i < items.length; i++) {
+                                    output[0].content[header].push(items[i]);
+                                }
+
+                                // Stringify and save to file
+                                let data = stringify(output);
+                                fs.writeFile("CHANGELOG.md", data, function(err) {
+                                    if (err) {
+                                        console.log("Could not write updated changelog");
+                                    } else {
+
+                                        // Make sure pluralisation of "item" is correct
+                                        if (items.length === 1) {
+                                            console.log("Added " + items.length + " item to \"" + header + "\"");
+                                        } else {
+                                            console.log("Added " + items.length + " items to \"" + header + "\"");
+                                        }
+
+                                    }
+                                });
+                            }
+                        }
+                    });
+                });
+            }
+        });
     }
 };
 
