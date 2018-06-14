@@ -1,9 +1,3 @@
-# Deprecation warning
-I haven't used or updated this in a _long_ time, so please use with caution and be aware that a lot of things probably won't work.
-
-
-If there is an actual use for something like this again, then I'll continue working on it! But as for right now I'm afraid I don't have time :(
-
 # changelog [![npm version](https://badge.fury.io/js/changelogapp.svg)](https://badge.fury.io/js/changelogapp) [![Dependency Status](https://david-dm.org/samholmes1337/changelog.svg)](https://david-dm.org/samholmes1337/changelog)
 Easily create, manage and maintain [changelogs](http://keepachangelog.com)
 
