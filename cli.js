@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const chalk = require("chalk");
 const changelog = require("./changelog");
 const isModule = !(require.main === module);
 const args = process.argv;
@@ -19,13 +20,15 @@ function useAsCLI() {
 }
 
 function parseArgs() {
-    switch (args[0]) {
+    const cmd = args.splice(0, 1)[0];
+
+    switch (cmd) {
         case "help": printDocs(); break;
-        case "init": changelog.public.init(); break;
+        case "init": changelog.init(); break;
         case "destroy": changelog.public.destroy(); break;
 
         case "parse":
-            if (args[1]) changelog.public.parse(args[1]);
+            if (args[0]) changelog.public.parse(args[1]);
             else changelog.public.parse();
             break;
 
@@ -35,16 +38,17 @@ function parseArgs() {
         case "remove":
         case "fix":
         case "secure":
-            changelog.public.update(args[0]);
+            changelog.public.update(cmd);
             break;
 
-        case "bump": changelog.public.bump(args[1]); break;
+        case "bump": changelog.public.bump(args[0]); break;
         case "copy": changelog.public.copy(); break;
         case "release": changelog.public.release(); break;
         case "status": changelog.public.status(); break;
 
         default:
-            changelog.display("'" + args[0] + "' is not a changelog command. See 'changelog help'.");
+            console.log(chalk.red(`error: "${cmd}" is not a changelog command\n`));
+            printDocs();
             break;
     }
 }
