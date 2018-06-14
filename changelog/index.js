@@ -123,7 +123,9 @@ const cli = {
     async parse() {
         let data = await read();
         let parsed = parse(data);
-        console.log(parsed);
+        let formatted = JSON.stringify(parsed, null, 4);
+        
+        console.log(formatted);
     }
 };
 

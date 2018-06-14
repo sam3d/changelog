@@ -37,13 +37,13 @@ function parseArgs() {
         case "remove":
         case "fix":
         case "secure":
-            changelog.public.update(cmd);
+            cli.update(cmd);
             break;
 
-        case "bump": changelog.public.bump(args[0]); break;
-        case "copy": changelog.public.copy(); break;
-        case "release": changelog.public.release(); break;
-        case "status": changelog.public.status(); break;
+        case "bump": cli.bump(args[0]); break;
+        case "copy": cli.copy(); break;
+        case "release": cli.release(); break;
+        case "status": cli.status(); break;
 
         default:
             console.log(chalk.red(`error: "${cmd}" is not a changelog command\n`));
