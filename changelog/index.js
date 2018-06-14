@@ -2,6 +2,9 @@ const fs = require("fs-extra");
 const path = require("path");
 const chalk = require("chalk");
 const editor = require("editor");
+const moment = require("moment");
+const semver = require("semver");
+const ncp = require("copy-paste");
 
 const cwd = process.cwd();
 const filename = "CHANGELOG.md";
@@ -24,9 +27,10 @@ async function read() {
 
 async function write(changelog) {
     let file = path.join(cwd, filename);
+    let string = stringify(changelog);
 
     return new Promise(resolve => {
-        fs.writeFile(file, err => {
+        fs.writeFile(file, string, err => {
             if (err) fatal(`Could not write to ${filename}`);
             else resolve();
         });
@@ -319,8 +323,8 @@ const cli = {
         console.log(statusString);
     },
 
-    async copy() {
-
+    copy() {
+        fatal("Feature not yet implemented");
     },
 
     async destroy() {
@@ -338,8 +342,55 @@ const cli = {
         }
     },
 
-    async bump() {
+    // TODO: Uh oh, is that another refactor on the horizon, I think it is
+    async bump(type) {
+        let changelog = await read();
+        changelog = parse(changelog);
 
+        // Make sure there is content to bump
+        if (changelog[0].released || Object.keys(changelog[0].content).length === 0) {
+            console.log("No CHANGELOG.md content available to perform version bump");
+        } else {
+
+            // Get the previous version
+            var version = (changelog.length > 1) ? changelog[1].version : "0.0.0";
+
+            // Check the argument
+            if (semver.valid(type)) {
+
+                // Update to specific version
+                changelog[0].version = type;
+                changelog[0].released = true;
+                changelog[0].date = new Date();
+
+                // Save the updated file
+                await write(changelog);
+                console.log("Updated from " + version + " -> " + changelog[0].version);
+
+            } else {
+
+                // If the type has not been specified, default to patch
+                type = (type === null || type === undefined) ? "patch" : type;
+
+                switch (type) {
+                    case "patch":
+                    case "minor":
+                    case "major":
+                        changelog[0].version = semver.inc(version, type);
+                        changelog[0].released = true;
+                        changelog[0].date = new Date();
+
+                        await write(changelog);
+                        console.log("Updated from " + version + " -> " + changelog[0].version);
+                        break;
+
+                    default:
+                        console.log("'" + type + "' is not a valid version number or update type");
+                }
+
+            }
+
+        }
     },
 
     // TODO: Refactor this section, as it was just copied over
