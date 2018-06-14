@@ -536,5 +536,7 @@ const cli = {
 };
 
 module.exports = {
-    cli
+    cli,
+    stringify,
+    parse
 };
