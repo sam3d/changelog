@@ -53,7 +53,6 @@ It will open `$EDITOR`, at which point you can enter the changes made prevalent 
 |---|---|
 | `bump [version \| patch \| minor \| major]` | This command will bump the `Unreleased` header to the next desired version. If no argument is specified a _patch_ update will automatically be applied. You can specify your own version (provided it adheres to [Semantic Versioning](http://semver.org)) or you can specify a _patch_, _minor_ or _major_ jump |
 | `copy` | Copy the contents of the latest release item to the clipboard in markdown format |
-| `release` | Create a new commit and tag with the version number and publish the release to GitHub |
 
 
 ## API usage
@@ -66,8 +65,8 @@ Currently you can `parse` changelogs to JSON format and `stringify` the result b
 
 ### Parsing a changelog
 ```javascript
-var changelog = require("changelogapp");
-var fs = require("fs");
+const changelog = require("changelogapp");
+const fs = require("fs");
 
 // Get the CHANGELOG.md file
 fs.readFile("CHANGELOG.md", "utf8", function(err, docs){
@@ -116,9 +115,9 @@ For the above example, the output will be:
 
 ### Stringify the JSON data back to markdown
 ```javascript
-var changelog = require("changelogapp");
-var fs = require("fs");
-var parsedChangelog = require("./parsed-changelog.json");
+const changelog = require("changelogapp");
+const fs = require("fs");
+const parsedChangelog = require("./parsed-changelog.json");
 
 // Stringify the JSON
 changelog.stringify(parsedChangelog, function(err, data){

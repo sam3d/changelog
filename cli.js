@@ -42,7 +42,6 @@ function parseArgs() {
 
         case "bump": cli.bump(args[0]); break;
         case "copy": cli.copy(); break;
-        case "release": cli.release(); break;
         case "status": cli.status(); break;
 
         default:
@@ -71,7 +70,6 @@ Changelog Commands:
 Version Commands:
    bump       Update 'Unreleased' section to new version
    copy       Copy the latest version to the clipboard
-   release    Create a new commit & tag and published the release to GitHub
 
 Danger Zone:
    destroy   Completely destroy any changelog file in the current directory
