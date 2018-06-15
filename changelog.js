@@ -37,78 +37,69 @@ async function write(changelog) {
     });
 }
 
-// TODO: Refactor this section, as it was just copied over
 function parse(data) {
-    let output = [];
+    let lines = data.split("\n");
 
-    // Get the links
-    let links = {};
-    let newLines = data.split("\n"); // Seperate into newlines
-    data = ""; // Clear out data
+    let links = parseLinks(lines);
+    let releases = parseReleases(lines, links);
 
-    // Loop over the newlines
-    for (let i = 0; i < newLines.length; i++) {
+    return releases;
 
-        // Get the line
-        let line = newLines[i];
+    function parseLinks(lines) {
+        let links = {};
+        let linesWithoutLinks = [];
 
-        // Search for link
-        if (line.split(/\[.*\]:/).length > 1) {
-            let link = line.split(": ")[1].trim();
-            let version = line.split(": ")[0].split("[").join("").split("]").join("").trim();
-            links[version] = link;
-        } else {
-            data += line + "\n";
+        for (let i = 0; i < lines.length; i++) {
+            let line = lines[i];
+            let isLink = (line.split(/\[.*\]:/).length > 1);
+
+            if (!isLink) linesWithoutLinks.push(line);
+            else {
+                let link = line.split(": ")[1].trim();
+                let version = line.split(": ")[0].split("[").join("").split("]").join("").trim();
+
+                links[version] = link;
+            }
         }
 
+        lines = linesWithoutLinks;
+        return links;
     }
 
-    // Get releases
-    let releases = data.split("\n## ").slice(1); // Seperate by markdown headers
+    function parseReleases(lines, links) {
+        let output = [];
+        let releases = data.split("\n## ").slice(1);
 
-    // Loop over the releases and create final object
-    for (let i = 0; i < releases.length; i++) {
+        for (let i = 0; i < releases.length; i++) {
+            let release = releases[i];
 
-        // Get release data
-        let release = releases[i];
+            let rawVersion = release.split(" ")[0].split("\n")[0];
+            let version = rawVersion.split("[").join("").split("]").join("");
+            let released = (version !== "Unreleased");
+            let date = released ? new Date(release.split(" ")[2].split("\n")[0]) : null;
+            let link = (version == rawVersion) ? false : links[version];
 
-        // Get data from item
-        let rawVersion = release.split(" ")[0].split("\n")[0];
-        let version = rawVersion.split("[").join("").split("]").join("");
-        let released = (version !== "Unreleased");
-        let date = released ? new Date(release.split(" ")[2].split("\n")[0]) : null;
-        let link = (version == rawVersion) ? false : links[version];
+            let content = {};
 
-        // Storing all of the actual release content
-        let content = {};
+            let headers = release.split("\n### ");
+            headers.splice(0, 1);
+            for (let j = 0; j < headers.length; j++) {
+                let header = headers[j].split("\n")[0];
+                let notes = headers[j].split("\n- ");
+                notes.splice(0, 1);
 
-        // Extract the headers and content
-        let headers = release.split("\n### ");
-        headers.splice(0, 1);
-        for (let j = 0; j < headers.length; j++) {
+                for (let k = 0; k < notes.length; k++) {
+                    notes[k] = notes[k].split("\n").join(" ").trim();
+                }
 
-            // Get the titles and put them in the object
-            let header = headers[j].split("\n")[0];
-            let notes = headers[j].split("\n- ");
-            notes.splice(0, 1);
-
-            for (let k = 0; k < notes.length; k++) {
-                notes[k] = notes[k].split("\n").join(" ").trim();
+                content[header] = notes;
             }
 
-            content[header] = notes;
+            output.push({ version, released, date, link, content });
         }
 
-        output.push({
-            version: version,
-            released: released,
-            date: date,
-            link: link,
-            content: content
-        });
+        return output;
     }
-
-    return output;
 }
 
 // TODO: Refactor this section, as it was just copied over
