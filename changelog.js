@@ -39,23 +39,23 @@ async function write(changelog) {
 
 // TODO: Refactor this section, as it was just copied over
 function parse(data) {
-    var docs = [];
+    let output = [];
 
     // Get the links
-    var links = {};
-    var newLines = data.split("\n"); // Seperate into newlines
+    let links = {};
+    let newLines = data.split("\n"); // Seperate into newlines
     data = ""; // Clear out data
 
     // Loop over the newlines
-    for (var i = 0; i < newLines.length; i++) {
+    for (let i = 0; i < newLines.length; i++) {
 
         // Get the line
-        var line = newLines[i];
+        let line = newLines[i];
 
         // Search for link
         if (line.split(/\[.*\]:/).length > 1) {
-            var link = line.split(": ")[1].trim();
-            var version = line.split(": ")[0].split("[").join("").split("]").join("").trim();
+            let link = line.split(": ")[1].trim();
+            let version = line.split(": ")[0].split("[").join("").split("]").join("").trim();
             links[version] = link;
         } else {
             data += line + "\n";
@@ -64,44 +64,42 @@ function parse(data) {
     }
 
     // Get releases
-    var releases = data.split("\n## ").slice(1); // Seperate by markdown headers
+    let releases = data.split("\n## ").slice(1); // Seperate by markdown headers
 
     // Loop over the releases and create final object
-    for (var i = 0; i < releases.length; i++) {
+    for (let i = 0; i < releases.length; i++) {
 
         // Get release data
-        var release = releases[i];
+        let release = releases[i];
 
         // Get data from item
-        var rawVersion = release.split(" ")[0].split("\n")[0];
-        var version = rawVersion.split("[").join("").split("]").join("");
-        var released = (version !== "Unreleased");
-        var date = released ? new Date(release.split(" ")[2].split("\n")[0]) : null;
-        var link = (version == rawVersion) ? false : links[version];
+        let rawVersion = release.split(" ")[0].split("\n")[0];
+        let version = rawVersion.split("[").join("").split("]").join("");
+        let released = (version !== "Unreleased");
+        let date = released ? new Date(release.split(" ")[2].split("\n")[0]) : null;
+        let link = (version == rawVersion) ? false : links[version];
 
         // Storing all of the actual release content
-        var content = {};
+        let content = {};
 
         // Extract the headers and content
-        var headers = release.split("\n### ");
+        let headers = release.split("\n### ");
         headers.splice(0, 1);
-        for (var j = 0; j < headers.length; j++) {
+        for (let j = 0; j < headers.length; j++) {
 
             // Get the titles and put them in the object
-            var header = headers[j].split("\n")[0];
-            var notes = headers[j].split("\n- ");
+            let header = headers[j].split("\n")[0];
+            let notes = headers[j].split("\n- ");
             notes.splice(0, 1);
 
-            for (var k = 0; k < notes.length; k++) {
+            for (let k = 0; k < notes.length; k++) {
                 notes[k] = notes[k].split("\n").join(" ").trim();
             }
 
             content[header] = notes;
-
         }
 
-        // Push object to array
-        docs.push({
+        output.push({
             version: version,
             released: released,
             date: date,
@@ -110,22 +108,22 @@ function parse(data) {
         });
     }
 
-    return docs;
+    return output;
 }
 
 // TODO: Refactor this section, as it was just copied over
 function stringify(data) {
-    var output = "# Change Log\nAll notable changes to this project will be documented in this file.\nThis project adheres to [Semantic Versioning](http://semver.org/).\n\n";
-    var linkString = "";
+    let output = "# Change Log\nAll notable changes to this project will be documented in this file.\nThis project adheres to [Semantic Versioning](http://semver.org/).\n\n";
+    let linkString = "";
 
     // Loop over the data
-    for (var i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
 
         // Get release data
-        var release = data[i];
+        let release = data[i];
 
         // Create the release string
-        var releaseString = "";
+        let releaseString = "";
 
         // Get the release version
         if (release.link) {
@@ -137,12 +135,12 @@ function stringify(data) {
 
         // Get the release date
         if (release.date) {
-            var date = new Date(release.date);
+            let date = new Date(release.date);
 
             // Get properties from date object
-            var year = date.getFullYear();
-            var month = date.getMonth() + 1;
-            var day = date.getDate();
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1;
+            let day = date.getDate();
 
             // Normalise the 0 values
             month = month < 10 ? month = "0" + month : month;
@@ -152,18 +150,18 @@ function stringify(data) {
         }
 
         // Loop over expected content in the correct order
-        var headers = ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"];
-        for (var j = 0; j < headers.length; j++) {
+        let headers = ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"];
+        for (let j = 0; j < headers.length; j++) {
 
             // Get the header
-            var header = headers[j];
+            let header = headers[j];
 
             // Check whether it exists
             if (release.content[header]) {
 
                 // It exists, loop over inner content
                 releaseString += "\n### " + header;
-                for (var k = 0; k < release.content[header].length; k++) {
+                for (let k = 0; k < release.content[header].length; k++) {
                     releaseString += "\n- " + release.content[header][k];
                     if (k === (release.content[header].length - 1)) {
                         releaseString += "\n";
@@ -175,10 +173,10 @@ function stringify(data) {
         }
 
         // Loop over any additional custom headers
-        for (var key in release.content) {
+        for (let key in release.content) {
             if (release.content.hasOwnProperty(key) && headers.indexOf(key) === -1) {
                 releaseString += "\n### " + key;
-                for (var j = 0; j < release.content[key].length; j++) {
+                for (let j = 0; j < release.content[key].length; j++) {
                     releaseString += "\n- " + release.content[key][j];
                     if (j === (release.content[key].length - 1)) {
                         releaseString += "\n";
@@ -198,8 +196,9 @@ function stringify(data) {
     // Add the links on the end
     output += linkString + "\n";
 
-    // Callback
-    return output.trim() + "\n";
+    // Normalise and return
+    output = output.trim() + "\n";
+    return output;
 }
 
 const cli = {
@@ -241,7 +240,7 @@ const cli = {
         changelog = parse(changelog);
 
         // The final status information
-        var statusString = "";
+        let statusString = "";
 
         // Get information about the changelog
         if (!changelog[0].released) {
@@ -258,14 +257,14 @@ const cli = {
                 statusString += "\n\nUnreleased content:\n  (use \"changelog bump [version | patch | minor | major]\" to release)\n";
 
                 // Loop over the content
-                for (var key in changelog[0].content) {
+                for (let key in changelog[0].content) {
                     if (changelog[0].content.hasOwnProperty(key)) {
 
                         // Contain the inner string of the item
-                        var itemString = "";
+                        let itemString = "";
 
                         itemString += "\n  " + key + ":";
-                        for (var i = 0; i < changelog[0].content[key].length; i++) {
+                        for (let i = 0; i < changelog[0].content[key].length; i++) {
                             itemString += "\n    - " + changelog[0].content[key][i];
                             if (i === (changelog[0].content[key].length - 1)) {
                                 itemString += "\n";
@@ -353,7 +352,7 @@ const cli = {
         } else {
 
             // Get the previous version
-            var version = (changelog.length > 1) ? changelog[1].version : "0.0.0";
+            let version = (changelog.length > 1) ? changelog[1].version : "0.0.0";
 
             // Check the argument
             if (semver.valid(type)) {
@@ -438,7 +437,7 @@ const cli = {
         }
 
         // Add unreleased header if one is not already present
-        var newHeader = ""; // To show an additional message after creation
+        let newHeader = ""; // To show an additional message after creation
         if (!changelog.length) {
             changelog.unshift({
                 version: "Unreleased",
@@ -460,7 +459,7 @@ const cli = {
         }
 
         // Generate update edit message
-        var msg = "\n# Please enter what you have " + verb + " in this new version. Lines\n# starting with '#' will be ignored and an empty message aborts\n# the update. Multiple lines will be treated as multiple " + past + ".";
+        let msg = "\n# Please enter what you have " + verb + " in this new version. Lines\n# starting with '#' will be ignored and an empty message aborts\n# the update. Multiple lines will be treated as multiple " + past + ".";
         if (changelog.length > 1) {
             msg += "\n# Currently on version " + changelog[1].version;
         }
@@ -484,9 +483,9 @@ const cli = {
                             fs.unlink(".UPDATE_EDITMSG");
 
                             // Perform validation on update contents
-                            var lines = contents.split("\n"); // Seperate into newlines
-                            var items = []; // An array of the actual items to add
-                            for (var i = 0; i < lines.length; i++) {
+                            let lines = contents.split("\n"); // Seperate into newlines
+                            let items = []; // An array of the actual items to add
+                            for (let i = 0; i < lines.length; i++) {
 
                                 // Ignore lines with absolutely no content or start with "#"
                                 if (lines[i].length > 0 && lines[i].split(" ").join("").split("")[0] !== "#") {
@@ -506,7 +505,7 @@ const cli = {
                                 }
 
                                 // For each update item, add it to the changelog
-                                for (var i = 0; i < items.length; i++) {
+                                for (let i = 0; i < items.length; i++) {
                                     changelog[0].content[header].push(items[i]);
                                 }
 
