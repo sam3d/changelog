@@ -104,7 +104,7 @@ function parse(data) {
 
 // TODO: Refactor this section, as it was just copied over
 function stringify(data) {
-    let output = "# Change Log\nAll notable changes to this project will be documented in this file.\nThis project adheres to [Semantic Versioning](http://semver.org/).\n\n";
+    let output = "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n";
     let linkString = "";
 
     // Loop over the data
@@ -126,18 +126,7 @@ function stringify(data) {
 
         // Get the release date
         if (release.date) {
-            let date = new Date(release.date);
-
-            // Get properties from date object
-            let year = date.getFullYear();
-            let month = date.getMonth() + 1;
-            let day = date.getDate();
-
-            // Normalise the 0 values
-            month = month < 10 ? month = "0" + month : month;
-            day = day < 10 ? day = "0" + day : day;
-
-            releaseString += " - " + year + "-" + month + "-" + day;
+            releaseString += " - " + moment.utc(release.date).format("YYYY-MM-DD");
         }
 
         // Loop over expected content in the correct order
@@ -151,7 +140,7 @@ function stringify(data) {
             if (release.content[header]) {
 
                 // It exists, loop over inner content
-                releaseString += "\n### " + header;
+                releaseString += "\n\n### " + header + "\n";
                 for (let k = 0; k < release.content[header].length; k++) {
                     releaseString += "\n- " + release.content[header][k];
                     if (k === (release.content[header].length - 1)) {

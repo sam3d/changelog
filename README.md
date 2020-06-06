@@ -138,16 +138,22 @@ changelog.stringify(parsedChangelog, function(err, data){
 Given the JSON example from the previous section, the `stringify` function will generate the following markdown file:
 
 ```markdown
-# Change Log
+# Changelog
+
 All notable changes to this project will be documented in this file.
-This project adheres to [Semantic Versioning](http://semver.org/).
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
 ### Fixed
+
 - Remove the muffin man
 
 ## 0.0.1 - 2016-02-19
+
 ### Added
+
 - The ability to do some cool stuff
 - Have you heard of the muffin man?
 
